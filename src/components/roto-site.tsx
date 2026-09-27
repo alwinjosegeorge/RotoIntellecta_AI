@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowDownRight, ArrowRight, CheckCircle2, ChevronDown, Award, Cpu, Download, Edit3, Flame, GraduationCap, HardHat, Layers, Menu, Plus, RotateCcw, Search, ShieldCheck, Sparkles, Trash2, Upload, Wrench, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, CheckCircle2, ChevronDown, Award, Cpu, Flame, GraduationCap, HardHat, Layers, Menu, ShieldCheck, Sparkles, X, Wrench } from "lucide-react";
 
 import heroImage from "@/assets/industrial-hero.jpg";
 import bearingImage from "@/assets/bearing-diagnostic.jpg";
 import turbineImage from "@/assets/turbine-hall.jpg";
+import { getStoredCaseStudies, type CaseStudy } from "@/lib/blog-storage";
 
 const navItems = [
   ["Services", "#services"],
@@ -701,512 +702,96 @@ export function TrainingSection() {
 }
 
 export function CaseStudies() {
-  const [casesList, setCasesList] = useState(() => {
-    if (typeof window === "undefined") return [...fieldCases];
-    try {
-      const saved = localStorage.getItem("roto_case_studies");
-      if (saved) return JSON.parse(saved);
-    } catch {
-      // fallback
-    }
-    return [...fieldCases];
-  });
-
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTag, setSelectedTag] = useState("ALL");
-  const [isAdminMode, setIsAdminMode] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [cases, setCases] = useState<CaseStudy[]>([]);
 
-  const [formData, setFormData] = useState({
-    tag: "",
-    title: "",
-    highlight: "",
-    teaser: "",
-    situation: "",
-    approach: "",
-    outcome: "",
-    imageOption: "turbine", // turbine, bearing, hero, custom
-    customImageUrl: "",
-  });
+  useEffect(() => {
+    setCases(getStoredCaseStudies());
+    const handleUpdate = () => setCases(getStoredCaseStudies());
+    window.addEventListener("case-studies-updated", handleUpdate);
+    return () => window.removeEventListener("case-studies-updated", handleUpdate);
+  }, []);
 
-  // Save changes to localStorage
-  const saveCases = (newList: typeof fieldCases | any[]) => {
-    setCasesList(newList);
-    try {
-      localStorage.setItem("roto_case_studies", JSON.stringify(newList));
-    } catch {
-      // storage error
-    }
-  };
-
-  const handleOpenAdd = () => {
-    setEditingIndex(null);
-    setFormData({
-      tag: "TURBOMACHINERY · VIBRATION ANALYSIS",
-      title: "",
-      highlight: "PROVEN ROI / AVAILABILITY",
-      teaser: "",
-      situation: "",
-      approach: "",
-      outcome: "",
-      imageOption: "turbine",
-      customImageUrl: "",
-    });
-    setShowModal(true);
-  };
-
-  const handleOpenEdit = (index: number) => {
-    const item = casesList[index];
-    setEditingIndex(index);
-    setFormData({
-      tag: item.tag,
-      title: item.title,
-      highlight: item.highlight,
-      teaser: item.teaser,
-      situation: item.situation,
-      approach: item.approach,
-      outcome: item.outcome,
-      imageOption: item.image === bearingImage ? "bearing" : item.image === heroImage ? "hero" : item.image === turbineImage ? "turbine" : "custom",
-      customImageUrl: typeof item.image === "string" ? item.image : "",
-    });
-    setShowModal(true);
-  };
-
-  const handleDelete = (index: number) => {
-    if (window.confirm("Are you sure you want to delete this case study?")) {
-      const updated = casesList.filter((_, i) => i !== index);
-      saveCases(updated);
-    }
-  };
-
-  const handleResetDefaults = () => {
-    if (window.confirm("Reset to the official 5 seed field case studies?")) {
-      saveCases([...fieldCases]);
-    }
-  };
-
-  const handleExportJSON = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(casesList, null, 2));
-    const downloadAnchor = document.createElement("a");
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "rotointellecta_case_studies.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.title.trim()) return;
-
-    let selectedImg = turbineImage;
-    if (formData.imageOption === "bearing") selectedImg = bearingImage;
-    if (formData.imageOption === "hero") selectedImg = heroImage;
-    if (formData.imageOption === "custom" && formData.customImageUrl.trim()) {
-      selectedImg = formData.customImageUrl.trim();
-    }
-
-    const newItem = {
-      no: editingIndex !== null ? casesList[editingIndex].no : String(casesList.length + 1).padStart(2, "0"),
-      tag: formData.tag.trim() || "FIELD ENGINEERING PUBLICATION",
-      title: formData.title.trim(),
-      highlight: formData.highlight.trim() || "PROVEN RESULT",
-      teaser: formData.teaser.trim() || formData.situation.slice(0, 120) + "...",
-      situation: formData.situation.trim(),
-      approach: formData.approach.trim(),
-      outcome: formData.outcome.trim(),
-      image: selectedImg,
-    };
-
-    let updated: any[];
-    if (editingIndex !== null) {
-      updated = [...casesList];
-      updated[editingIndex] = newItem;
-    } else {
-      updated = [newItem, ...casesList];
-    }
-
-    saveCases(updated);
-    setShowModal(false);
-    setOpenIndex(0);
-  };
-
-  // Image file upload support (converts to base64 data URL)
-  const handleImageFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prev) => ({
-          ...prev,
-          imageOption: "custom",
-          customImageUrl: reader.result as string,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Filter list
-  const filteredCases = casesList.filter((item) => {
-    const matchesSearch =
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.tag.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.situation.toLowerCase().includes(searchQuery.toLowerCase());
-
-    if (selectedTag === "ALL") return matchesSearch;
-    return matchesSearch && item.tag.toLowerCase().includes(selectedTag.toLowerCase());
-  });
+  const displayList = cases.length > 0 ? cases : fieldCases;
 
   return (
-    <section id="cases" className="bg-ink py-24 text-ink-foreground lg:py-36 relative">
+    <section id="cases" className="bg-ink py-24 text-ink-foreground lg:py-36">
       <div className="mx-auto max-w-site px-5 lg:px-8">
-        {/* Header with Title & Action Controls */}
         <div className="grid gap-8 lg:grid-cols-12 items-end">
-          <div className="lg:col-span-7">
-            <p className="kicker text-ink-muted">Field Engineering Publications & Blog</p>
+          <div className="lg:col-span-8">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <p className="kicker text-ink-muted">Field Engineering Publications / 01—{String(displayList.length).padStart(2, "0")}</p>
+              <a
+                href="/admin"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-1 rounded-lg transition-colors"
+              >
+                + Manage / Upload Blogs
+              </a>
+            </div>
             <h2 className="section-title text-white mt-4">CASE STUDIES & FIELD NOTES.</h2>
           </div>
-          <div className="lg:col-span-5 flex flex-col items-start lg:items-end gap-4">
-            <p className="text-sm text-ink-muted leading-relaxed">
-              Real turbomachinery diagnostic cases from the field—demonstrating why engineering patterns and ground truth surpass rigid databases.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={handleOpenAdd}
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-black hover:bg-zinc-200 transition-all shadow-sm active:scale-95 cursor-pointer"
-              >
-                <Plus className="size-4" /> Upload New Case Study
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsAdminMode(!isAdminMode)}
-                className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold border transition-all cursor-pointer ${isAdminMode ? "border-amber-400 text-amber-400 bg-amber-400/10" : "border-ink-line text-zinc-300 hover:bg-white/5"}`}
-              >
-                <Wrench className="size-3.5" /> {isAdminMode ? "Exit Manage Mode" : "Manage"}
-              </button>
-            </div>
-          </div>
+          <p className="body-copy text-ink-muted lg:col-span-4">
+            Real turbomachinery diagnostic cases from the field—demonstrating why engineering patterns and ground truth surpass rigid databases.
+          </p>
         </div>
 
-        {/* Search & Category Filter Toolbar */}
-        <div className="mt-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 border-y border-ink-line py-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-zinc-500" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search case studies, machinery, vibration faults..."
-              className="w-full rounded-lg bg-zinc-900 border border-ink-line py-2 pl-10 pr-4 text-xs text-white placeholder-zinc-500 focus:outline-hidden focus:border-white"
-            />
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            {["ALL", "GAS", "VIBRATION", "PM", "GEARBOX", "BALANCING"].map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => setSelectedTag(tag)}
-                className={`rounded-lg px-3 py-1.5 text-[11px] font-mono uppercase transition-colors cursor-pointer ${selectedTag === tag ? "bg-white text-black font-bold" : "bg-zinc-900 text-zinc-400 hover:text-white border border-ink-line"}`}
+        <div className="mt-16 space-y-4">
+          {displayList.map((item, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div
+                key={item.id || item.no}
+                className={`border border-ink-line rounded-2xl overflow-hidden transition-colors ${isOpen ? "bg-ink-panel" : "bg-black/60 hover:bg-black/80"}`}
               >
-                {tag}
-              </button>
-            ))}
-          </div>
-
-          {isAdminMode && (
-            <div className="flex items-center gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-ink-line">
-              <button
-                type="button"
-                onClick={handleExportJSON}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-800 px-3 py-1.5 text-xs text-zinc-300 hover:text-white border border-ink-line cursor-pointer"
-                title="Export all case studies to JSON backup"
-              >
-                <Download className="size-3.5" /> Export JSON
-              </button>
-              <button
-                type="button"
-                onClick={handleResetDefaults}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-800 px-3 py-1.5 text-xs text-zinc-300 hover:text-white border border-ink-line cursor-pointer"
-                title="Reset to the 5 official seed case studies"
-              >
-                <RotateCcw className="size-3.5" /> Reset
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Case Studies List */}
-        <div className="mt-10 space-y-4">
-          {filteredCases.length === 0 ? (
-            <div className="text-center py-16 border border-dashed border-ink-line rounded-2xl bg-zinc-950/40">
-              <p className="text-sm text-zinc-400">No case studies matching your query.</p>
-              <button
-                type="button"
-                onClick={() => { setSearchQuery(""); setSelectedTag("ALL"); }}
-                className="mt-3 text-xs font-semibold text-white underline cursor-pointer"
-              >
-                Clear filters
-              </button>
-            </div>
-          ) : (
-            filteredCases.map((item, idx) => {
-              const isOpen = openIndex === idx;
-              return (
-                <div
-                  key={item.title + idx}
-                  className={`border border-ink-line rounded-2xl overflow-hidden transition-colors ${isOpen ? "bg-ink-panel" : "bg-black/60 hover:bg-black/80"}`}
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : idx)}
+                  className="w-full text-left p-6 sm:p-8 flex items-start justify-between gap-4 cursor-pointer"
                 >
-                  <div className="flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={() => setOpenIndex(isOpen ? null : idx)}
-                      className="w-full text-left p-6 sm:p-8 flex items-start justify-between gap-4 cursor-pointer"
-                    >
-                      <div className="grid grid-cols-[40px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] gap-4 items-start">
-                        <span className="font-mono text-sm text-ink-muted">{item.no || String(idx + 1).padStart(2, "0")}</span>
-                        <div>
-                          <span className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider block">{item.tag}</span>
-                          <h3 className="mt-2 text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">{item.title}</h3>
-                          {!isOpen && <p className="mt-2 text-xs sm:text-sm text-zinc-400 line-clamp-1">{item.teaser}</p>}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4 shrink-0">
-                        <span className="hidden md:inline-block font-mono text-xs text-zinc-400 bg-white/10 px-3 py-1 rounded">
-                          {item.highlight}
-                        </span>
-                        <span className={`grid size-9 place-items-center rounded-full border border-ink-line text-lg text-white transition-transform ${isOpen ? "rotate-45" : ""}`}>
-                          +
-                        </span>
-                      </div>
-                    </button>
-
-                    {/* Admin Action Bar (if active) */}
-                    {isAdminMode && (
-                      <div className="flex items-center gap-2 pr-6 border-l border-ink-line/50 pl-4 shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => handleOpenEdit(idx)}
-                          className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors cursor-pointer"
-                          title="Edit this case study"
-                        >
-                          <Edit3 className="size-4" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDelete(idx)}
-                          className="p-2 rounded-lg bg-rose-950/60 hover:bg-rose-900 text-rose-300 transition-colors cursor-pointer"
-                          title="Delete this case study"
-                        >
-                          <Trash2 className="size-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Expanded Full Case Article View */}
-                  {isOpen && (
-                    <div className="px-6 pb-8 sm:px-8 pt-2 border-t border-ink-line/50 grid gap-8 lg:grid-cols-12 animate-in fade-in duration-300">
-                      <div className="overflow-hidden rounded-xl lg:col-span-5 bg-zinc-900 border border-ink-line">
-                        <img
-                          src={item.image || turbineImage}
-                          alt={item.title}
-                          loading="lazy"
-                          width={1600}
-                          height={1200}
-                          className="aspect-[4/3] w-full object-cover grayscale"
-                        />
-                      </div>
-                      <div className="space-y-6 lg:col-span-7">
-                        <div>
-                          <h4 className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider">The Challenge & Symptoms</h4>
-                          <p className="mt-2 text-sm leading-relaxed text-zinc-300">{item.situation}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider">Engineering Approach & Discovery</h4>
-                          <p className="mt-2 text-sm leading-relaxed text-zinc-300">{item.approach}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider">The Ground Truth Outcome</h4>
-                          <p className="mt-2 text-sm leading-relaxed text-emerald-400 font-medium">{item.outcome}</p>
-                        </div>
-                      </div>
+                  <div className="grid grid-cols-[40px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] gap-4 items-start">
+                    <span className="font-mono text-sm text-ink-muted">{item.no}</span>
+                    <div>
+                      <span className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider block">{item.tag}</span>
+                      <h3 className="mt-2 text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">{item.title}</h3>
+                      {!isOpen && <p className="mt-2 text-xs sm:text-sm text-zinc-400 line-clamp-1">{item.teaser || item.situation}</p>}
                     </div>
-                  )}
-                </div>
-              );
-            })
-          )}
-        </div>
-      </div>
+                  </div>
+                  <div className="flex items-center gap-4 shrink-0">
+                    <span className="hidden md:inline-block font-mono text-xs text-zinc-400 bg-white/10 px-3 py-1 rounded">
+                      {item.highlight}
+                    </span>
+                    <span className={`grid size-9 place-items-center rounded-full border border-ink-line text-lg text-white transition-transform ${isOpen ? "rotate-45" : ""}`}>
+                      +
+                    </span>
+                  </div>
+                </button>
 
-      {/* Upload / Edit Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-zinc-700 bg-zinc-950 p-6 sm:p-8 text-white shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-              <div>
-                <h3 className="text-xl font-bold text-white">
-                  {editingIndex !== null ? "Edit Case Study / Blog" : "Upload New Case Study / Blog"}
-                </h3>
-                <p className="text-xs text-zinc-400 mt-0.5">Publish field technical stories and diagnostic breakthroughs.</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowModal(false)}
-                className="grid size-8 place-items-center rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white cursor-pointer"
-              >
-                <X className="size-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit} className="mt-6 space-y-5 text-left">
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Title of the Case Study *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Early Bearing Defect Identification in Turbines"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Category & Machinery Tag</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. GAS TURBINES · VIBRATION"
-                    value={formData.tag}
-                    onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
-                    className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Key Metric / Highlight</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 200,000+ HOURS OVERHAUL"
-                    value={formData.highlight}
-                    onChange={(e) => setFormData({ ...formData, highlight: e.target.value })}
-                    className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">Short Teaser Summary</label>
-                <input
-                  type="text"
-                  placeholder="One sentence summary of the engineering breakthrough"
-                  value={formData.teaser}
-                  onChange={(e) => setFormData({ ...formData, teaser: e.target.value })}
-                  className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">1. The Challenge & Symptoms *</label>
-                <textarea
-                  required
-                  rows={3}
-                  placeholder="Describe the operational issue, symptoms, vibration anomalies, or plant situation..."
-                  value={formData.situation}
-                  onChange={(e) => setFormData({ ...formData, situation: e.target.value })}
-                  className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white leading-relaxed"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">2. Engineering Approach & Discovery *</label>
-                <textarea
-                  required
-                  rows={3}
-                  placeholder="How was the root cause diagnosed? What calculations, spectrum analysis, or field tests were executed?..."
-                  value={formData.approach}
-                  onChange={(e) => setFormData({ ...formData, approach: e.target.value })}
-                  className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white leading-relaxed"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">3. The Ground Truth Outcome *</label>
-                <textarea
-                  required
-                  rows={2}
-                  placeholder="Measurable results, uptime gains, financial OpEx savings, or overhaul interval extensions..."
-                  value={formData.outcome}
-                  onChange={(e) => setFormData({ ...formData, outcome: e.target.value })}
-                  className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white leading-relaxed"
-                />
-              </div>
-
-              {/* Image Selection */}
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-2">Featured Image</label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-                  {[
-                    { id: "turbine", label: "Turbine Hall", img: turbineImage },
-                    { id: "bearing", label: "Bearing FFT", img: bearingImage },
-                    { id: "hero", label: "Rotor Workshop", img: heroImage },
-                    { id: "custom", label: "Custom URL/Upload", img: null },
-                  ].map((opt) => (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => setFormData({ ...formData, imageOption: opt.id })}
-                      className={`p-2.5 rounded-xl border text-center text-xs font-medium transition-all cursor-pointer ${formData.imageOption === opt.id ? "border-white bg-white/10 text-white" : "border-zinc-800 bg-zinc-900 text-zinc-400"}`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-
-                {formData.imageOption === "custom" && (
-                  <div className="space-y-2 pt-2">
-                    <input
-                      type="url"
-                      placeholder="Paste image URL (https://...)"
-                      value={formData.customImageUrl}
-                      onChange={(e) => setFormData({ ...formData, customImageUrl: e.target.value })}
-                      className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 text-sm text-white focus:outline-hidden focus:border-white"
-                    />
-                    <div className="flex items-center gap-2 text-xs text-zinc-400">
-                      <span>Or upload an image file:</span>
-                      <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white cursor-pointer">
-                        <Upload className="size-3.5" /> Choose File
-                        <input type="file" accept="image/*" onChange={handleImageFileUpload} className="hidden" />
-                      </label>
+                {isOpen && (
+                  <div className="px-6 pb-8 sm:px-8 pt-2 border-t border-ink-line/50 grid gap-8 lg:grid-cols-12 animate-in fade-in duration-300">
+                    <div className="overflow-hidden rounded-xl lg:col-span-5">
+                      <img src={item.image} alt={item.title} loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full object-cover grayscale" />
+                    </div>
+                    <div className="space-y-6 lg:col-span-7">
+                      <div>
+                        <h4 className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider">The Challenge & Symptoms</h4>
+                        <p className="mt-2 text-sm leading-relaxed text-zinc-300">{item.situation}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider">Engineering Approach & Discovery</h4>
+                        <p className="mt-2 text-sm leading-relaxed text-zinc-300">{item.approach}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider">The Ground Truth Outcome</h4>
+                        <p className="mt-2 text-sm leading-relaxed text-emerald-400 font-medium">{item.outcome}</p>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
-
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-5 py-2.5 rounded-xl border border-zinc-800 text-sm font-semibold text-zinc-400 hover:text-white cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-white text-black text-sm font-bold hover:bg-zinc-200 transition-all shadow-md active:scale-95 cursor-pointer"
-                >
-                  {editingIndex !== null ? "Save Changes" : "Publish Case Study"}
-                </button>
-              </div>
-            </form>
-          </div>
+            );
+          })}
         </div>
-      )}
+      </div>
     </section>
   );
 }
