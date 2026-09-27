@@ -1027,27 +1027,24 @@ Make the blog feel like a professional engineering publication.
 
 Do not make it look like a generic AI startup template.
 
-Build the complete frontend now.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://roto-intellecta-forge.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/33c47e56-c07e-4cfc-a392-65eaeb27a332).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+Make the complete frontend seamless and high-performing.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+You need Node.js (v20+) and npm:
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+git clone https://github.com/alwinjosegeorge/RotoIntellecta_AI.git
+cd RotoIntellecta_AI
+npm install
 npm run dev
 ```
+
+## Deployment
+
+### Vercel
+Deploy seamlessly by importing the repository into Vercel.
+
+### Netlify
+Deploy automatically using `netlify.toml` with the preconfigured Node 22 build environment.
+

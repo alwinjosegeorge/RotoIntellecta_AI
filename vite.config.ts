@@ -5,13 +5,6 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
-const getPreset = () => {
-  if (process.env.NITRO_PRESET) return process.env.NITRO_PRESET;
-  if (process.env.NETLIFY) return "netlify";
-  if (process.env.VERCEL) return "vercel";
-  return undefined;
-};
-
 export default defineConfig({
   plugins: [
     viteTsConfigPaths({
@@ -22,7 +15,7 @@ export default defineConfig({
       server: { entry: "server" },
     }),
     nitro({
-      preset: getPreset(),
+      preset: "vercel",
     }),
     viteReact(),
   ],
