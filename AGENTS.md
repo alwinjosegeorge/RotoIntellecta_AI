@@ -1,0 +1,2 @@
+- Keep the RotoIntellecta experience as a single editorial landing page with anchor navigation; the requested narrative is one continuous scroll.
+- Treat the uploaded legacy HTML as content-only source material; never reuse its presentation or unsupported claims.
