@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowDownRight, ArrowRight, CheckCircle2, ChevronDown, Award, Cpu, Flame, GraduationCap, HardHat, Layers, Menu, ShieldCheck, Sparkles, X, Wrench } from "lucide-react";
+import { ArrowDownRight, ArrowRight, CheckCircle2, ChevronDown, Award, Cpu, Flame, GraduationCap, HardHat, Layers, Menu, ShieldCheck, Sparkles, X, Wrench, Phone, Mail } from "lucide-react";
 
 import heroImage from "@/assets/industrial-hero.jpg";
 import bearingImage from "@/assets/bearing-diagnostic.jpg";
@@ -12,6 +12,7 @@ const navItems = [
   ["Case Studies", "#cases"],
   ["Academy", "#training"],
   ["Tribute", "#tribute"],
+  ["Contact", "#contact"],
 ] as const;
 
 const fivePillars = ["MONITOR", "PREDICT", "MAINTAIN", "OPTIMISE", "GROOM"] as const;
@@ -324,27 +325,55 @@ export function Navbar() {
             <a className="nav-link" href={href} key={href}>{label}</a>
           ))}
         </div>
-        <a href="mailto:info@rotointellecta.ai" className="ml-auto hidden items-center gap-2 text-xs font-semibold uppercase lg:flex">
-          Talk to an expert <ArrowDownRight className="size-4" />
-        </a>
+        <div className="ml-auto hidden items-center gap-5 lg:flex">
+          <a
+            href="tel:8891144334"
+            className="flex items-center gap-1.5 text-xs font-mono text-zinc-300 hover:text-white transition-colors"
+          >
+            <Phone className="size-3.5 text-emerald-400" />
+            <span>+91 88911 44334</span>
+          </a>
+          <a
+            href="#contact"
+            className="flex items-center gap-1.5 text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors"
+          >
+            Talk to an expert <ArrowDownRight className="size-3.5" />
+          </a>
+        </div>
         <button type="button" className="grid size-10 place-items-center lg:hidden" aria-label="Open menu" onClick={() => setOpen(true)}>
           <Menu className="size-5" />
         </button>
       </nav>
       {open && (
-        <div className="fixed inset-0 z-50 flex min-h-dvh flex-col bg-ink p-5 text-ink-foreground animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex min-h-dvh flex-col bg-ink p-5 text-ink-foreground animate-in fade-in duration-200 overflow-y-auto">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center border-b border-ink-line pb-5">
             <span className="text-sm font-bold uppercase">RotoIntellecta AI</span>
             <button type="button" className="grid size-10 place-items-center" aria-label="Close menu" onClick={() => setOpen(false)}>
               <X className="size-6" />
             </button>
           </div>
-          <div className="flex flex-1 flex-col justify-center gap-3">
-            {[...navItems, ["Contact", "#contact"] as const].map(([label, href], i) => (
-              <a key={href} href={href} onClick={() => setOpen(false)} className="border-b border-ink-line py-4 text-3xl font-medium">
+          <div className="flex flex-1 flex-col justify-center gap-2 py-4">
+            {navItems.map(([label, href], i) => (
+              <a key={href} href={href} onClick={() => setOpen(false)} className="border-b border-ink-line py-3 text-2xl font-medium">
                 0{i + 1} — {label}
               </a>
             ))}
+            <div className="mt-6 border-t border-ink-line pt-5 space-y-3 font-mono text-xs">
+              <a
+                href="tel:8891144334"
+                className="flex items-center gap-2.5 text-zinc-200 hover:text-white transition-colors"
+              >
+                <Phone className="size-4 text-emerald-400" />
+                <span>+91 88911 44334</span>
+              </a>
+              <a
+                href="mailto:Rotointellecta@gmail.com"
+                className="flex items-center gap-2.5 text-zinc-200 hover:text-white transition-colors"
+              >
+                <Mail className="size-4 text-emerald-400" />
+                <span>Rotointellecta@gmail.com</span>
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -391,7 +420,7 @@ export function Hero() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#services" className="btn-light">Explore solutions <ArrowDownRight className="size-4" /></a>
-              <a href="mailto:info@rotointellecta.ai" className="btn-outline-light">Talk to an expert</a>
+              <a href="#contact" className="btn-outline-light">Talk to an expert</a>
             </div>
           </div>
           <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
@@ -400,6 +429,9 @@ export function Hero() {
               <p>Remote Engineering Support & RCA</p>
               <p>24/7 AI System1 Data Surveillance</p>
               <p>Mobius Cat III & CMRP Certified</p>
+              <p className="text-zinc-300 pt-1">
+                Direct Desk: <a href="tel:8891144334" className="text-white hover:underline">+91 88911 44334</a>
+              </p>
             </div>
           </div>
         </div>
@@ -817,6 +849,132 @@ export function TributeSection() {
   );
 }
 
+export function ContactSection() {
+  const [copiedPhone, setCopiedPhone] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const copyToClipboard = (text: string, type: "phone" | "email") => {
+    navigator.clipboard.writeText(text);
+    if (type === "phone") {
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2000);
+    } else {
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    }
+  };
+
+  return (
+    <section id="contact" className="relative bg-ink py-24 text-ink-foreground lg:py-32 overflow-hidden border-t border-ink-line">
+      <div className="absolute inset-0 technical-grid opacity-20 pointer-events-none" />
+      <div className="relative mx-auto max-w-site px-5 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-12 items-end">
+          <div className="lg:col-span-8">
+            <p className="kicker text-ink-muted">DIRECT ENGINEERING DISPATCH & INQUIRIES</p>
+            <h2 className="section-title text-white mt-4">
+              CONNECT WITH OUR RELIABILITY SPECIALISTS.
+            </h2>
+          </div>
+          <p className="body-copy text-ink-muted lg:col-span-4">
+            Whether facing critical turbomachinery vibration anomalies, planning PM optimization, or booking Mobius certification courses, reach our engineering desk directly.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Card 1: Official Phone & WhatsApp */}
+          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950">
+            <div className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-6 group-hover:scale-105 transition-transform">
+              <Phone className="size-6 text-emerald-400" />
+            </div>
+            <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Direct Phone & WhatsApp</p>
+            <h3 className="mt-2 text-2xl font-bold tracking-tight text-white font-mono">
+              +91 88911 44334
+            </h3>
+            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+              Immediate technical dispatch, emergency vibration troubleshooting, and plant advisory.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              <a
+                href="tel:8891144334"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors"
+              >
+                <Phone className="size-3.5" /> Call Direct
+              </a>
+              <a
+                href="https://wa.me/918891144334"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3.5 py-2 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors"
+              >
+                WhatsApp
+              </a>
+              <button
+                type="button"
+                onClick={() => copyToClipboard("8891144334", "phone")}
+                className="inline-flex items-center gap-1 rounded-lg border border-zinc-800 px-2.5 py-2 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer"
+                title="Copy phone number"
+              >
+                {copiedPhone ? <CheckCircle2 className="size-3.5 text-emerald-400" /> : "Copy"}
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: Official Email */}
+          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950">
+            <div className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-6 group-hover:scale-105 transition-transform">
+              <Mail className="size-6 text-emerald-400" />
+            </div>
+            <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Official Engineering Email</p>
+            <h3 className="mt-2 text-xl font-bold tracking-tight text-white break-all">
+              Rotointellecta@gmail.com
+            </h3>
+            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+              Submit spectrum waterfall plots, RFQs, training inquiries, or asset maintenance logs.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              <a
+                href="mailto:Rotointellecta@gmail.com"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors"
+              >
+                <Mail className="size-3.5" /> Send Mail
+              </a>
+              <button
+                type="button"
+                onClick={() => copyToClipboard("Rotointellecta@gmail.com", "email")}
+                className="inline-flex items-center gap-1 rounded-lg border border-zinc-800 px-2.5 py-2 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer"
+                title="Copy email address"
+              >
+                {copiedEmail ? <CheckCircle2 className="size-3.5 text-emerald-400" /> : "Copy"}
+              </button>
+            </div>
+          </div>
+
+          {/* Card 3: Operating Coverage */}
+          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950 md:col-span-2 lg:col-span-1">
+            <div className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-6 group-hover:scale-105 transition-transform">
+              <ShieldCheck className="size-6 text-emerald-400" />
+            </div>
+            <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Operating Coverage</p>
+            <h3 className="mt-2 text-2xl font-bold tracking-tight text-white font-mono">
+              24/7 Global Surveillance
+            </h3>
+            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+              Remote turbomachinery vibration analysis, Bently Nevada System1 monitoring, and on-site expert deployment across India & worldwide.
+            </p>
+            <div className="mt-6 flex items-center gap-2 text-xs font-mono text-emerald-400">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+              </span>
+              <span>Direct Technical Support Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="relative bg-[#ebebeb] pt-12 md:pt-16 pb-16 md:pb-24 px-4 sm:px-6 md:px-8 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem]">
@@ -835,6 +993,20 @@ export function Footer() {
               <p className="mt-5 text-sm text-zinc-500 leading-relaxed max-w-xs">
                 Condition monitoring, reliability engineering training, and predictive AI solutions for mission-critical rotating machinery.
               </p>
+              <div className="mt-5 space-y-2 text-xs font-mono text-zinc-700">
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-400 uppercase">Phone:</span>
+                  <a href="tel:8891144334" className="font-semibold text-zinc-950 hover:underline">
+                    +91 88911 44334
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-400 uppercase">Email:</span>
+                  <a href="mailto:Rotointellecta@gmail.com" className="font-semibold text-zinc-950 hover:underline">
+                    Rotointellecta@gmail.com
+                  </a>
+                </div>
+              </div>
               <p className="mt-4 font-mono text-[10px] uppercase text-zinc-400">
                 MONITOR | PREDICT | MAINTAIN | OPTIMISE | GROOM
               </p>
@@ -868,8 +1040,8 @@ export function Footer() {
               <ul className="space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
                 <li><a href="#expertise" className="hover:text-zinc-950 transition-colors">18 Years Expertise</a></li>
                 <li><a href="#expertise" className="hover:text-zinc-950 transition-colors">Certifications</a></li>
-                <li><a href="mailto:info@rotointellecta.ai" className="hover:text-zinc-950 transition-colors">Contact</a></li>
-                <li><a href="mailto:info@rotointellecta.ai" className="hover:text-zinc-950 transition-colors">Inquiries</a></li>
+                <li><a href="tel:8891144334" className="hover:text-zinc-950 transition-colors">+91 88911 44334</a></li>
+                <li><a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-950 transition-colors">Rotointellecta@gmail.com</a></li>
               </ul>
             </div>
           </div>
@@ -878,9 +1050,10 @@ export function Footer() {
         {/* Divider & Bottom copyright row */}
         <div className="mt-12 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-400">
           <p>© 2026 RotoIntellecta AI. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-6">
             <a href="#top" className="hover:text-zinc-700 transition-colors">Back to top ↑</a>
-            <a href="mailto:info@rotointellecta.ai" className="hover:text-zinc-700 transition-colors">info@rotointellecta.ai</a>
+            <a href="tel:8891144334" className="hover:text-zinc-700 transition-colors font-mono">+91 88911 44334</a>
+            <a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-700 transition-colors">Rotointellecta@gmail.com</a>
           </div>
         </div>
       </div>
@@ -909,6 +1082,7 @@ export default function RotoSite() {
       <TrainingSection />
       <CaseStudies />
       <TributeSection />
+      <ContactSection />
       <Footer />
     </main>
   );
