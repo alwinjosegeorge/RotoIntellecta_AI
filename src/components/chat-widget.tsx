@@ -248,7 +248,12 @@ export function ChatWidget() {
             <a href="tel:8891144334" className="flex items-center gap-1 hover:text-zinc-950 text-zinc-800 font-semibold">
               <Phone className="size-3 text-emerald-600" /> +91 88911 44334
             </a>
-            <a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-950 text-zinc-500">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-950 text-zinc-500 hover:underline"
+            >
               Rotointellecta@gmail.com
             </a>
           </div>

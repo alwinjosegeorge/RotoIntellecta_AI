@@ -957,6 +957,22 @@ export function ContactSection() {
     }
   };
 
+  const handleSendMail = (e?: React.MouseEvent) => {
+    const mailtoUrl = "mailto:Rotointellecta@gmail.com?subject=Technical%20Inquiry%20-%20RotoIntellecta%20AI";
+    const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI";
+
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      window.location.href = mailtoUrl;
+    } else {
+      // On desktop, open Gmail compose tab directly
+      window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <section id="contact" className="relative bg-ink py-24 text-ink-foreground lg:py-32 overflow-hidden border-t border-ink-line">
       <div className="absolute inset-0 technical-grid opacity-20 pointer-events-none" />
@@ -1026,18 +1042,36 @@ export function ContactSection() {
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <a
-                href="mailto:Rotointellecta@gmail.com"
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-white px-3.5 py-2.5 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors active:scale-95"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleSendMail}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-white px-3.5 py-2.5 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors active:scale-95 cursor-pointer shadow-sm"
               >
                 <Mail className="size-3.5" /> Send Mail
+              </a>
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors active:scale-95"
+                title="Compose directly in Gmail"
+              >
+                Open Gmail
               </a>
               <button
                 type="button"
                 onClick={() => copyToClipboard("Rotointellecta@gmail.com", "email")}
-                className="inline-flex items-center justify-center gap-1 rounded-xl border border-zinc-800 px-3.5 py-2.5 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer active:scale-95"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-zinc-800 px-3 py-2.5 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer active:scale-95"
                 title="Copy email address"
               >
-                {copiedEmail ? <CheckCircle2 className="size-3.5 text-emerald-400" /> : "Copy"}
+                {copiedEmail ? (
+                  <span className="flex items-center gap-1 text-emerald-400 font-sans font-semibold">
+                    <CheckCircle2 className="size-3.5" /> Copied
+                  </span>
+                ) : (
+                  "Copy"
+                )}
               </button>
             </div>
           </div>
