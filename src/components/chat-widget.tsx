@@ -11,7 +11,6 @@ import {
   Bot,
   User,
   CheckCircle2,
-  Database,
 } from "lucide-react";
 import { saveChatInquiry, checkNeonHealth, type ChatInquiry } from "@/lib/neon-db";
 import { askGemini } from "@/lib/gemini";
@@ -200,15 +199,6 @@ export function ChatWidget() {
               <ArrowUp className="size-4" />
             </button>
           </form>
-
-          {/* Database indicator */}
-          <div className="mt-2.5 flex items-center justify-between text-[10px] text-zinc-400 px-1 font-mono">
-            <span className="flex items-center gap-1">
-              <Database className="size-3 text-emerald-500" />
-              <span>Gemini AI & Neon DB</span>
-            </span>
-            <span>RotoIntellecta AI</span>
-          </div>
         </div>
       )}
 
@@ -226,10 +216,10 @@ export function ChatWidget() {
                 <h4 className="text-xs font-bold tracking-tight text-white flex items-center gap-1.5">
                   RotoIntellecta AI Desk
                   <span className="rounded bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.2 text-[9px] font-mono">
-                    GEMINI LIVE
+                    ONLINE
                   </span>
                 </h4>
-                <p className="text-[10px] text-zinc-400 font-mono">Gemini Flash & Neon DB</p>
+                <p className="text-[10px] text-zinc-400">24/7 Technical Dispatch</p>
               </div>
             </div>
 
