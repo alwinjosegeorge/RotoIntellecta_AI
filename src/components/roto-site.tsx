@@ -4,6 +4,8 @@ import { ArrowDownRight, ArrowRight, CheckCircle2, ChevronDown, Award, Cpu, Flam
 import heroImage from "@/assets/industrial-hero.jpg";
 import bearingImage from "@/assets/bearing-diagnostic.jpg";
 import turbineImage from "@/assets/turbine-hall.jpg";
+import nelsonSirImage from "@/assets/nelson-sir.jpg";
+import { ChatWidget } from "@/components/chat-widget";
 import { getStoredCaseStudies, type CaseStudy } from "@/lib/blog-storage";
 
 const navItems = [
@@ -835,7 +837,24 @@ export function TributeSection() {
         <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-xs font-mono uppercase text-zinc-600 mb-8">
           <span>In Loving Memory</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif italic text-zinc-900 leading-tight">
+
+        {/* Nelson Sir Portrait */}
+        <div className="mb-8 flex justify-center">
+          <div className="relative group">
+            <div className="size-36 sm:size-44 md:size-48 rounded-full overflow-hidden border-4 border-zinc-100 shadow-2xl ring-1 ring-zinc-300">
+              <img
+                src={nelsonSirImage}
+                alt="Nelson Sir — Our mentor, inspiration, and light"
+                className="w-full h-full object-cover object-top filter grayscale contrast-105 hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-zinc-950 text-white font-mono text-[10px] uppercase tracking-wider px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+              Mentor & Inspiration
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif italic text-zinc-900 leading-tight max-w-3xl mx-auto">
           “When you earn money, don’t just build wealth—create employment. Give back to the society that educated you. One job can feed a family and educate a generation.”
         </h2>
         <div className="mt-8 space-y-2">
@@ -1084,6 +1103,7 @@ export default function RotoSite() {
       <TributeSection />
       <ContactSection />
       <Footer />
+      <ChatWidget />
     </main>
   );
 }
