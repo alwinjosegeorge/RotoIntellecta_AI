@@ -13,56 +13,21 @@ export interface ChatInquiry {
   createdAt?: string;
 }
 
-const NEON_CONNECTION_STRING =
+export const NEON_CONNECTION_STRING =
   "postgresql://neondb_owner:npg_Y6tFU3fdXJiE@ep-fragrant-violet-b5h7gl41-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require";
-const NEON_HTTP_ENDPOINT =
+export const NEON_HTTP_ENDPOINT =
   "https://ep-fragrant-violet-b5h7gl41-pooler.c-7.us-east-2.aws.neon.tech/sql";
 
+/**
+ * Universal query runner for Neon PostgreSQL.
+ * Note: Does not set forbidden Content-Type headers that fail browser CORS preflight.
+ */
 export async function queryNeon<T = any>(query: string): Promise<T[]> {
   try {
-    // If in Node.js server environment with https module available
-    if (typeof window === "undefined") {
-      try {
-        const https = await import("node:https");
-        return new Promise<T[]>((resolve, reject) => {
-          const req = https.request(
-            NEON_HTTP_ENDPOINT,
-            {
-              method: "POST",
-              family: 4,
-              headers: {
-                "Neon-Connection-String": NEON_CONNECTION_STRING,
-                "Content-Type": "application/json",
-              },
-            },
-            (res) => {
-              let raw = "";
-              res.on("data", (chunk) => (raw += chunk));
-              res.on("end", () => {
-                try {
-                  const parsed = JSON.parse(raw);
-                  resolve((parsed.rows as T[]) || []);
-                } catch {
-                  resolve([]);
-                }
-              });
-            }
-          );
-          req.on("error", (e) => reject(e));
-          req.write(JSON.stringify({ query }));
-          req.end();
-        });
-      } catch {
-        // Fallback to fetch
-      }
-    }
-
-    // Standard Browser / Universal fetch with CORS support
     const response = await fetch(NEON_HTTP_ENDPOINT, {
       method: "POST",
       headers: {
         "Neon-Connection-String": NEON_CONNECTION_STRING,
-        "Content-Type": "application/json",
       },
       body: JSON.stringify({ query }),
     });

@@ -6,7 +6,7 @@ import bearingImage from "@/assets/bearing-diagnostic.jpg";
 import turbineImage from "@/assets/turbine-hall.jpg";
 import nelsonSirImage from "@/assets/nelson-sir.jpg";
 import { ChatWidget } from "@/components/chat-widget";
-import { getStoredCaseStudies, type CaseStudy } from "@/lib/blog-storage";
+import { getStoredCaseStudies, syncCaseStudiesFromDatabase, type CaseStudy } from "@/lib/blog-storage";
 
 const navItems = [
   ["Services", "#services"],
@@ -815,6 +815,9 @@ export function CaseStudies() {
 
   useEffect(() => {
     setCases(getStoredCaseStudies());
+    syncCaseStudiesFromDatabase().then((fresh) => {
+      if (fresh && fresh.length > 0) setCases(fresh);
+    });
     const handleUpdate = () => setCases(getStoredCaseStudies());
     window.addEventListener("case-studies-updated", handleUpdate);
     return () => window.removeEventListener("case-studies-updated", handleUpdate);
@@ -827,15 +830,7 @@ export function CaseStudies() {
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-12 items-end">
           <div className="lg:col-span-8">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <p className="kicker text-ink-muted">Field Engineering Publications / 01—{String(displayList.length).padStart(2, "0")}</p>
-              <a
-                href="/admin"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-1 rounded-lg transition-colors"
-              >
-                + Manage / Upload Blogs
-              </a>
-            </div>
+            <p className="kicker text-ink-muted">Field Engineering Publications / 01—{String(displayList.length).padStart(2, "0")}</p>
             <h2 className="section-title text-white mt-4">CASE STUDIES & FIELD NOTES.</h2>
           </div>
           <p className="body-copy text-ink-muted lg:col-span-4">

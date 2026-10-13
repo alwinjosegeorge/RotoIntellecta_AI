@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import {
   getStoredCaseStudies,
+  syncCaseStudiesFromDatabase,
   addCaseStudy,
   updateCaseStudy,
   deleteCaseStudy,
@@ -98,13 +99,29 @@ function AdminDashboard() {
   const [outcome, setOutcome] = useState("");
   const [selectedImage, setSelectedImage] = useState<string>(turbineImage);
 
-  const loadData = () => {
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  const loadData = async (forceSync = false) => {
     setCaseStudies(getStoredCaseStudies());
+    if (forceSync) setIsSyncing(true);
+    try {
+      const fresh = await syncCaseStudiesFromDatabase();
+      if (fresh && fresh.length > 0) {
+        setCaseStudies(fresh);
+      }
+      if (forceSync) {
+        showToast("Synchronized with Neon Cloud PostgreSQL!");
+      }
+    } catch {
+      // fallback to cached
+    } finally {
+      if (forceSync) setIsSyncing(false);
+    }
   };
 
   useEffect(() => {
     loadData();
-    const handleUpdate = () => loadData();
+    const handleUpdate = () => setCaseStudies(getStoredCaseStudies());
     window.addEventListener("case-studies-updated", handleUpdate);
     return () => window.removeEventListener("case-studies-updated", handleUpdate);
   }, []);
@@ -299,6 +316,15 @@ function AdminDashboard() {
 
           <div className="flex items-center gap-3">
             <button
+              onClick={() => loadData(true)}
+              disabled={isSyncing}
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-300 hover:text-white border border-zinc-700 bg-zinc-850 hover:bg-zinc-800 px-3 py-1.5 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+              title="Pull latest case studies from Neon Cloud DB"
+            >
+              <RefreshCw className={`size-3.5 ${isSyncing ? "animate-spin text-emerald-400" : ""}`} />
+              <span className="hidden sm:inline">{isSyncing ? "Syncing..." : "Sync Cloud"}</span>
+            </button>
+            <button
               onClick={handleLogout}
               className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-rose-400 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
               title="Lock admin session"
@@ -340,10 +366,10 @@ function AdminDashboard() {
             <p className="text-3xl font-extrabold text-white mt-1">{caseStudies.length}</p>
           </div>
           <div className="bg-[#141418] border border-zinc-800/80 p-5 rounded-2xl">
-            <span className="text-xs font-mono uppercase text-zinc-400">Sync Status</span>
+            <span className="text-xs font-mono uppercase text-zinc-400">Cloud Database Sync</span>
             <p className="text-sm font-semibold text-emerald-400 mt-2 flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-              Live Connected to Homepage (#cases)
+              Neon PostgreSQL Connected (Live Sync)
             </p>
           </div>
           <div className="bg-[#141418] border border-zinc-800/80 p-5 rounded-2xl">
