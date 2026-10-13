@@ -71,7 +71,7 @@ function AdminDashboard() {
         sessionStorage.setItem("roto_admin_authenticated", "true");
       }
     } else {
-      setPasswordError("Incorrect password. Please enter valid PIN (5555).");
+      setPasswordError("Incorrect password. Access denied.");
     }
   };
 
@@ -241,7 +241,7 @@ function AdminDashboard() {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter Password (e.g. 5555)"
+                  placeholder="Enter Admin Password"
                   value={passwordInput}
                   onChange={(e) => {
                     setPasswordInput(e.target.value);
