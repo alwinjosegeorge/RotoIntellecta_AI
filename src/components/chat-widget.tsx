@@ -153,10 +153,10 @@ export function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+    <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       {/* 1. POPUP CARD VIEW (Exact match to uploaded user image) */}
       {viewState === "popup" && (
-        <div className="mb-3 w-[320px] sm:w-[350px] rounded-3xl bg-[#f5f5f5] p-5 shadow-2xl border border-zinc-200/90 text-zinc-900 animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div className="mb-2 w-[calc(100vw-1.5rem)] max-w-[340px] sm:max-w-[360px] rounded-3xl bg-[#f5f5f5] p-4 sm:p-5 shadow-2xl border border-zinc-200/90 text-zinc-900 animate-in fade-in slide-in-from-bottom-5 duration-300">
           {/* Top Row with Waving Hand & Avatar */}
           <div className="relative flex flex-col items-center pt-2 pb-1">
             <span className="text-5xl select-none animate-bounce" role="img" aria-label="waving hand">
@@ -228,7 +228,7 @@ export function ChatWidget() {
 
       {/* 2. EXPANDED FULL CHAT CONVERSATION VIEW */}
       {viewState === "chat" && (
-        <div className="mb-3 flex h-[500px] w-[340px] sm:w-[380px] flex-col rounded-3xl bg-white shadow-2xl border border-zinc-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="mb-2 flex h-[calc(100dvh-5.5rem)] max-h-[520px] w-[calc(100vw-1.5rem)] max-w-[380px] flex-col rounded-3xl bg-white shadow-2xl border border-zinc-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           {/* Header */}
           <div className="bg-zinc-950 p-4 text-white flex items-center justify-between">
             <div className="flex items-center gap-2.5">

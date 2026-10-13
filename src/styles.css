@@ -84,9 +84,15 @@ summary::-webkit-details-marker { display: none; }
 @keyframes case-open { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 1023px) {
-  .hero-title { font-size: clamp(3.45rem, 13.5vw, 7rem); line-height: 0.88; }
-  .bg-hero-wash { background: linear-gradient(0deg, var(--ink) 0%, color-mix(in oklab, var(--ink) 45%, transparent) 65%, var(--ink) 100%); }
-  .section-title { margin-top: 2rem; }
+  .hero-title { font-size: clamp(2.4rem, 10.5vw, 5.5rem); line-height: 0.92; letter-spacing: -0.02em; }
+  .bg-hero-wash { background: linear-gradient(0deg, var(--ink) 0%, color-mix(in oklab, var(--ink) 55%, transparent) 55%, var(--ink) 95%); }
+  .section-title { margin-top: 1.5rem; font-size: clamp(2rem, 7.5vw, 4.5rem); line-height: 0.95; }
+  .ai-title { font-size: clamp(1.9rem, 6.5vw, 4.5rem); line-height: 0.96; }
+}
+
+@media (max-width: 640px) {
+  .kicker { font-size: 0.58rem; line-height: 1.45; }
+  .body-copy { font-size: 0.95rem; line-height: 1.6; }
 }
 
 @media (prefers-reduced-motion: reduce) {

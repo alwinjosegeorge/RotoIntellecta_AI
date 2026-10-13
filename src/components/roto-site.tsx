@@ -317,16 +317,20 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-ink/90 text-ink-foreground backdrop-blur-md">
-      <nav className="mx-auto grid h-16 max-w-site grid-cols-[minmax(0,1fr)_auto] items-center px-5 lg:grid-cols-[1fr_auto_1fr] lg:px-8" aria-label="Primary navigation">
+      <nav className="mx-auto flex h-16 max-w-site items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
         <a href="#top" className="flex items-center gap-2.5 text-sm font-bold uppercase tracking-normal">
           <div className="size-6 rounded bg-white text-black flex items-center justify-center font-black text-xs">R</div>
           <span>RotoIntellecta <span className="text-ink-muted">AI</span></span>
         </a>
+        
+        {/* Desktop Navigation Links */}
         <div className="hidden items-center gap-8 lg:flex">
           {navItems.map(([label, href]) => (
             <a className="nav-link" href={href} key={href}>{label}</a>
           ))}
         </div>
+
+        {/* Desktop Contact Actions */}
         <div className="ml-auto hidden items-center gap-5 lg:flex">
           <a
             href="tel:8891144334"
@@ -342,40 +346,92 @@ export function Navbar() {
             Talk to an expert <ArrowDownRight className="size-3.5" />
           </a>
         </div>
-        <button type="button" className="grid size-10 place-items-center lg:hidden" aria-label="Open menu" onClick={() => setOpen(true)}>
-          <Menu className="size-5" />
-        </button>
+
+        {/* Mobile Right Action Bar */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href="tel:8891144334"
+            aria-label="Direct Call"
+            className="grid size-9 place-items-center rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 active:scale-95 transition-transform"
+          >
+            <Phone className="size-4" />
+          </a>
+          <button
+            type="button"
+            className="grid size-9 place-items-center rounded-lg bg-white/10 text-white active:scale-95 transition-transform"
+            aria-label="Open menu"
+            onClick={() => setOpen(true)}
+          >
+            <Menu className="size-5" />
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile Menu Drawer */}
       {open && (
-        <div className="fixed inset-0 z-50 flex min-h-dvh flex-col bg-ink p-5 text-ink-foreground animate-in fade-in duration-200 overflow-y-auto">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center border-b border-ink-line pb-5">
-            <span className="text-sm font-bold uppercase">RotoIntellecta AI</span>
-            <button type="button" className="grid size-10 place-items-center" aria-label="Close menu" onClick={() => setOpen(false)}>
-              <X className="size-6" />
+        <div className="fixed inset-0 z-50 flex min-h-dvh flex-col bg-ink/98 backdrop-blur-xl p-5 text-ink-foreground animate-in fade-in duration-200 overflow-y-auto">
+          <div className="flex items-center justify-between border-b border-ink-line pb-4">
+            <div className="flex items-center gap-2">
+              <div className="size-6 rounded bg-white text-black flex items-center justify-center font-black text-xs">R</div>
+              <span className="text-sm font-bold uppercase tracking-wider">RotoIntellecta AI</span>
+            </div>
+            <button
+              type="button"
+              className="grid size-9 place-items-center rounded-xl bg-white/10 text-white active:scale-90 transition-transform cursor-pointer"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+            >
+              <X className="size-5" />
             </button>
           </div>
-          <div className="flex flex-1 flex-col justify-center gap-2 py-4">
+
+          <div className="flex flex-1 flex-col justify-center gap-1 py-4">
             {navItems.map(([label, href], i) => (
-              <a key={href} href={href} onClick={() => setOpen(false)} className="border-b border-ink-line py-3 text-2xl font-medium">
-                0{i + 1} — {label}
+              <a
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="group flex items-center justify-between border-b border-ink-line/40 py-3 text-xl font-medium tracking-tight text-zinc-200 hover:text-white transition-colors"
+              >
+                <span className="font-mono text-xs text-zinc-500 mr-3">0{i + 1}</span>
+                <span className="flex-1 text-left">{label}</span>
+                <ArrowDownRight className="size-4 text-zinc-600 group-hover:text-white transition-colors" />
               </a>
             ))}
-            <div className="mt-6 border-t border-ink-line pt-5 space-y-3 font-mono text-xs">
+          </div>
+
+          <div className="mt-auto border-t border-ink-line pt-4 pb-2 space-y-2.5">
+            <div className="grid grid-cols-2 gap-2">
               <a
                 href="tel:8891144334"
-                className="flex items-center gap-2.5 text-zinc-200 hover:text-white transition-colors"
+                className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 p-2.5 text-xs font-mono font-semibold text-emerald-300 active:scale-95 transition-transform"
               >
-                <Phone className="size-4 text-emerald-400" />
-                <span>+91 88911 44334</span>
+                <Phone className="size-3.5 text-emerald-400" />
+                <span>Call Now</span>
               </a>
               <a
-                href="mailto:Rotointellecta@gmail.com"
-                className="flex items-center gap-2.5 text-zinc-200 hover:text-white transition-colors"
+                href="https://wa.me/918891144334"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/15 p-2.5 text-xs font-mono font-semibold text-white active:scale-95 transition-transform"
               >
-                <Mail className="size-4 text-emerald-400" />
-                <span>Rotointellecta@gmail.com</span>
+                <span>WhatsApp</span>
               </a>
             </div>
+            <a
+              href="mailto:Rotointellecta@gmail.com"
+              className="flex items-center justify-center gap-2 rounded-xl bg-zinc-900 border border-zinc-800 p-2 text-xs font-mono text-zinc-300 truncate"
+            >
+              <Mail className="size-3.5 text-zinc-400" />
+              <span>Rotointellecta@gmail.com</span>
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3 text-xs font-bold uppercase tracking-wider text-black shadow-lg active:scale-95 transition-transform"
+            >
+              Talk to an Expert <ArrowDownRight className="size-4" />
+            </a>
           </div>
         </div>
       )}
@@ -385,46 +441,64 @@ export function Navbar() {
 
 export function Hero() {
   return (
-    <section id="top" className="relative min-h-[960px] overflow-hidden bg-ink pt-16 text-ink-foreground lg:min-h-[920px]">
+    <section id="top" className="relative min-h-[100svh] lg:min-h-[920px] overflow-hidden bg-ink pt-16 text-ink-foreground flex flex-col justify-between">
       <div className="absolute inset-x-0 bottom-0 h-[64%] lg:left-[33%] lg:top-16 lg:h-[calc(100%-4rem)]">
         <img src={heroImage} alt="Industrial turbine rotor in a workshop" width={1920} height={1280} fetchPriority="high" className="h-full w-full object-cover grayscale" />
         <div className="absolute inset-0 bg-hero-wash" />
         <div className="absolute inset-0 technical-grid opacity-30" />
       </div>
-      <div className="relative mx-auto flex min-h-[896px] max-w-site flex-col px-5 pb-8 pt-14 lg:px-8 lg:pb-10 lg:pt-12">
-        <div className="grid grid-cols-4 gap-4 lg:grid-cols-12">
-          <p className="kicker text-ink-muted">Rotating equipment reliability<br />& industrial artificial intelligence</p>
-          <p className="col-span-2 col-start-3 hidden text-right font-mono text-[10px] uppercase leading-relaxed text-ink-muted lg:col-span-2 lg:col-start-11 lg:block">
-            Proven OpEx / ~$5M Saved<br />Experience / 18+ Years<br />Global Support
-          </p>
+      
+      <div className="relative mx-auto flex flex-1 flex-col justify-between max-w-site w-full px-5 pb-8 pt-8 sm:pt-12 lg:px-8 lg:pb-10 lg:pt-12">
+        <div>
+          <div className="grid grid-cols-4 gap-4 lg:grid-cols-12">
+            <p className="kicker text-ink-muted">Rotating equipment reliability<br />& industrial artificial intelligence</p>
+            <p className="col-span-2 col-start-3 hidden text-right font-mono text-[10px] uppercase leading-relaxed text-ink-muted lg:col-span-2 lg:col-start-11 lg:block">
+              Proven OpEx / ~$5M Saved<br />Experience / 18+ Years<br />Global Support
+            </p>
+          </div>
+
+          <h1 className="hero-title mt-6 sm:mt-12">
+            <span>Every bearing</span>
+            <span>tells a story</span>
+            <span className="text-ink-muted">before it fails.</span>
+          </h1>
+
+          {/* 5 Core Pillars Bar */}
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-xs font-mono tracking-wider text-zinc-300 uppercase">
+            {fivePillars.map((pillar, i) => (
+              <span key={pillar} className="flex items-center gap-2 sm:gap-4 bg-white/5 lg:bg-transparent px-2.5 py-1 sm:px-0 sm:py-0 rounded-md sm:rounded-none border border-white/10 lg:border-none">
+                <span className="font-semibold text-white">{pillar}</span>
+                {i < fivePillars.length - 1 && <span className="text-zinc-600 hidden sm:inline">◈</span>}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <h1 className="hero-title mt-12">
-          <span>Every bearing</span>
-          <span>tells a story</span>
-          <span className="text-ink-muted">before it fails.</span>
-        </h1>
-
-        {/* 5 Core Pillars Bar */}
-        <div className="mt-8 flex flex-wrap items-center gap-4 text-xs font-mono tracking-widest text-zinc-300 uppercase">
-          {fivePillars.map((pillar, i) => (
-            <span key={pillar} className="flex items-center gap-4">
-              <span className="font-semibold text-white">{pillar}</span>
-              {i < fivePillars.length - 1 && <span className="text-zinc-600">◈</span>}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-auto grid items-end gap-8 pt-8 lg:grid-cols-12">
+        <div className="mt-8 grid items-end gap-6 sm:gap-8 pt-4 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="max-w-xl text-base leading-relaxed text-zinc-300">
+            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-zinc-300">
               Welcome to the future of industrial reliability. At <strong className="text-white">RotoIntellecta AI</strong>, we bridge the gap between heavy-duty engineering and cutting-edge artificial intelligence. We specialize in rotating equipment excellence, offering a comprehensive suite of digital and technical solutions designed to maximize your asset life cycle and minimize unplanned downtime.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#services" className="btn-light">Explore solutions <ArrowDownRight className="size-4" /></a>
-              <a href="#contact" className="btn-outline-light">Talk to an expert</a>
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 w-full sm:w-auto">
+              <a href="#services" className="btn-light w-full sm:w-auto text-center justify-center">Explore solutions <ArrowDownRight className="size-4" /></a>
+              <a href="#contact" className="btn-outline-light w-full sm:w-auto text-center justify-center">Talk to an expert</a>
+            </div>
+
+            {/* Mobile quick reliability badges */}
+            <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono text-zinc-400 lg:hidden border-t border-ink-line/60 pt-4">
+              <span className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded">
+                <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                24/7 Remote RCA & System1
+              </span>
+              <span className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded">
+                Mobius Cat III & CMRP
+              </span>
+              <a href="tel:8891144334" className="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold">
+                <Phone className="size-3" /> Call: +91 88911 44334
+              </a>
             </div>
           </div>
+          
           <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
             <div className="border-l border-ink-line pl-5 font-mono text-[11px] uppercase leading-6 text-ink-muted space-y-1">
               <p className="text-white font-semibold">◈ High Vibration? Recurring Failures?</p>
@@ -780,30 +854,30 @@ export function CaseStudies() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full text-left p-6 sm:p-8 flex items-start justify-between gap-4 cursor-pointer"
+                  className="w-full text-left p-4 sm:p-8 flex items-start justify-between gap-3 sm:gap-4 cursor-pointer"
                 >
-                  <div className="grid grid-cols-[40px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] gap-4 items-start">
-                    <span className="font-mono text-sm text-ink-muted">{item.no}</span>
+                  <div className="grid grid-cols-[32px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] gap-3 sm:gap-4 items-start">
+                    <span className="font-mono text-xs sm:text-sm text-ink-muted">{item.no}</span>
                     <div>
                       <span className="font-mono text-[10px] uppercase text-zinc-400 tracking-wider block">{item.tag}</span>
-                      <h3 className="mt-2 text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">{item.title}</h3>
+                      <h3 className="mt-1.5 sm:mt-2 text-lg sm:text-2xl lg:text-3xl font-bold text-white leading-tight">{item.title}</h3>
                       {!isOpen && <p className="mt-2 text-xs sm:text-sm text-zinc-400 line-clamp-1">{item.teaser || item.situation}</p>}
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 shrink-0">
-                    <span className="hidden md:inline-block font-mono text-xs text-zinc-400 bg-white/10 px-3 py-1 rounded">
+                  <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+                    <span className="inline-block font-mono text-[10px] sm:text-xs text-emerald-400 bg-emerald-950/70 border border-emerald-800/60 px-2 sm:px-3 py-0.5 sm:py-1 rounded max-w-[110px] sm:max-w-none truncate">
                       {item.highlight}
                     </span>
-                    <span className={`grid size-9 place-items-center rounded-full border border-ink-line text-lg text-white transition-transform ${isOpen ? "rotate-45" : ""}`}>
+                    <span className={`grid size-8 sm:size-9 place-items-center rounded-full border border-ink-line text-sm sm:text-lg text-white transition-transform ${isOpen ? "rotate-45" : ""}`}>
                       +
                     </span>
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-8 sm:px-8 pt-2 border-t border-ink-line/50 grid gap-8 lg:grid-cols-12 animate-in fade-in duration-300">
+                  <div className="px-4 pb-6 sm:px-8 sm:pb-8 pt-3 border-t border-ink-line/50 grid gap-6 sm:gap-8 lg:grid-cols-12 animate-in fade-in duration-300">
                     <div className="overflow-hidden rounded-xl lg:col-span-5">
-                      <img src={item.image} alt={item.title} loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full object-cover grayscale" />
+                      <img src={item.image} alt={item.title} loading="lazy" width={1600} height={1200} className="aspect-[16/10] sm:aspect-[4/3] w-full object-cover grayscale" />
                     </div>
                     <div className="space-y-6 lg:col-span-7">
                       <div>
@@ -899,23 +973,23 @@ export function ContactSection() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 sm:mt-14 grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Card 1: Official Phone & WhatsApp */}
-          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-6 group-hover:scale-105 transition-transform">
-              <Phone className="size-6 text-emerald-400" />
+          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-5 sm:p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950">
+            <div className="flex size-11 sm:size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-5 group-hover:scale-105 transition-transform">
+              <Phone className="size-5 sm:size-6 text-emerald-400" />
             </div>
             <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Direct Phone & WhatsApp</p>
-            <h3 className="mt-2 text-2xl font-bold tracking-tight text-white font-mono">
+            <h3 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-white font-mono">
               +91 88911 44334
             </h3>
-            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+            <p className="mt-2.5 text-xs leading-relaxed text-zinc-400">
               Immediate technical dispatch, emergency vibration troubleshooting, and plant advisory.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2.5">
+            <div className="mt-6 grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
               <a
                 href="tel:8891144334"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-white px-3.5 py-2.5 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors active:scale-95"
               >
                 <Phone className="size-3.5" /> Call Direct
               </a>
@@ -923,44 +997,44 @@ export function ContactSection() {
                 href="https://wa.me/918891144334"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900 px-3.5 py-2 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-900 px-3.5 py-2.5 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors active:scale-95"
               >
                 WhatsApp
               </a>
               <button
                 type="button"
                 onClick={() => copyToClipboard("8891144334", "phone")}
-                className="inline-flex items-center gap-1 rounded-lg border border-zinc-800 px-2.5 py-2 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer"
+                className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1 rounded-xl border border-zinc-800 px-3 py-2.5 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer active:scale-95"
                 title="Copy phone number"
               >
-                {copiedPhone ? <CheckCircle2 className="size-3.5 text-emerald-400" /> : "Copy"}
+                {copiedPhone ? <CheckCircle2 className="size-3.5 text-emerald-400" /> : "Copy Number"}
               </button>
             </div>
           </div>
 
           {/* Card 2: Official Email */}
-          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-6 group-hover:scale-105 transition-transform">
-              <Mail className="size-6 text-emerald-400" />
+          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-5 sm:p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950">
+            <div className="flex size-11 sm:size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-5 group-hover:scale-105 transition-transform">
+              <Mail className="size-5 sm:size-6 text-emerald-400" />
             </div>
             <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Official Engineering Email</p>
-            <h3 className="mt-2 text-xl font-bold tracking-tight text-white break-all">
+            <h3 className="mt-2 text-lg sm:text-xl font-bold tracking-tight text-white break-all">
               Rotointellecta@gmail.com
             </h3>
-            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+            <p className="mt-2.5 text-xs leading-relaxed text-zinc-400">
               Submit spectrum waterfall plots, RFQs, training inquiries, or asset maintenance logs.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2.5">
+            <div className="mt-6 flex flex-wrap gap-2">
               <a
                 href="mailto:Rotointellecta@gmail.com"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-white px-3.5 py-2.5 text-xs font-semibold text-black hover:bg-zinc-200 transition-colors active:scale-95"
               >
                 <Mail className="size-3.5" /> Send Mail
               </a>
               <button
                 type="button"
                 onClick={() => copyToClipboard("Rotointellecta@gmail.com", "email")}
-                className="inline-flex items-center gap-1 rounded-lg border border-zinc-800 px-2.5 py-2 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1 rounded-xl border border-zinc-800 px-3.5 py-2.5 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer active:scale-95"
                 title="Copy email address"
               >
                 {copiedEmail ? <CheckCircle2 className="size-3.5 text-emerald-400" /> : "Copy"}
@@ -969,15 +1043,15 @@ export function ContactSection() {
           </div>
 
           {/* Card 3: Operating Coverage */}
-          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950 md:col-span-2 lg:col-span-1">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-6 group-hover:scale-105 transition-transform">
-              <ShieldCheck className="size-6 text-emerald-400" />
+          <div className="group relative rounded-2xl border border-ink-line bg-zinc-950/70 p-5 sm:p-7 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-950 md:col-span-2 lg:col-span-1">
+            <div className="flex size-11 sm:size-12 items-center justify-center rounded-xl bg-white/10 text-white mb-5 group-hover:scale-105 transition-transform">
+              <ShieldCheck className="size-5 sm:size-6 text-emerald-400" />
             </div>
             <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Operating Coverage</p>
-            <h3 className="mt-2 text-2xl font-bold tracking-tight text-white font-mono">
+            <h3 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-white font-mono">
               24/7 Global Surveillance
             </h3>
-            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+            <p className="mt-2.5 text-xs leading-relaxed text-zinc-400">
               Remote turbomachinery vibration analysis, Bently Nevada System1 monitoring, and on-site expert deployment across India & worldwide.
             </p>
             <div className="mt-6 flex items-center gap-2 text-xs font-mono text-emerald-400">
@@ -998,8 +1072,8 @@ export function Footer() {
   return (
     <footer className="relative bg-[#ebebeb] pt-12 md:pt-16 pb-16 md:pb-24 px-4 sm:px-6 md:px-8 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem]">
       {/* Floating Card */}
-      <div className="relative z-10 max-w-5xl mx-auto bg-white rounded-3xl p-8 sm:p-12 md:p-14 shadow-sm border border-zinc-200/80 text-zinc-900">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+      <div className="relative z-10 max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-12 md:p-14 shadow-sm border border-zinc-200/80 text-zinc-900">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left Column: Brand info */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
@@ -1009,7 +1083,7 @@ export function Footer() {
                 </div>
                 <span className="text-xl font-bold tracking-tight text-zinc-950">RotoIntellecta AI</span>
               </div>
-              <p className="mt-5 text-sm text-zinc-500 leading-relaxed max-w-xs">
+              <p className="mt-4 sm:mt-5 text-sm text-zinc-500 leading-relaxed max-w-xs">
                 Condition monitoring, reliability engineering training, and predictive AI solutions for mission-critical rotating machinery.
               </p>
               <div className="mt-5 space-y-2 text-xs font-mono text-zinc-700">
@@ -1033,10 +1107,10 @@ export function Footer() {
           </div>
 
           {/* Right Columns: Services, Academy, Company */}
-          <div className="lg:col-span-7 grid grid-cols-3 gap-6 sm:gap-8">
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
             <div>
-              <h4 className="text-sm font-semibold text-zinc-950 mb-4">Services</h4>
-              <ul className="space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
+              <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Services</h4>
+              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
                 <li><a href="#remote-support" className="hover:text-zinc-950 transition-colors">Remote Support</a></li>
                 <li><a href="#asset-management" className="hover:text-zinc-950 transition-colors">PM Optimization</a></li>
                 <li><a href="#predictive-monitoring" className="hover:text-zinc-950 transition-colors">Live PdM</a></li>
@@ -1045,8 +1119,8 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold text-zinc-950 mb-4">Resources</h4>
-              <ul className="space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
+              <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Resources</h4>
+              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
                 <li><a href="#cases" className="hover:text-zinc-950 transition-colors">Case Studies</a></li>
                 <li><a href="#training" className="hover:text-zinc-950 transition-colors">Mobius Cat I–III</a></li>
                 <li><a href="#training" className="hover:text-zinc-950 transition-colors">CMRP Prep</a></li>
@@ -1054,22 +1128,22 @@ export function Footer() {
               </ul>
             </div>
 
-            <div>
-              <h4 className="text-sm font-semibold text-zinc-950 mb-4">Company</h4>
-              <ul className="space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
+            <div className="col-span-2 sm:col-span-1">
+              <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Company</h4>
+              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
                 <li><a href="#expertise" className="hover:text-zinc-950 transition-colors">18 Years Expertise</a></li>
                 <li><a href="#expertise" className="hover:text-zinc-950 transition-colors">Certifications</a></li>
-                <li><a href="tel:8891144334" className="hover:text-zinc-950 transition-colors">+91 88911 44334</a></li>
-                <li><a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-950 transition-colors">Rotointellecta@gmail.com</a></li>
+                <li><a href="tel:8891144334" className="hover:text-zinc-950 transition-colors font-mono">+91 88911 44334</a></li>
+                <li><a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-950 transition-colors truncate block">Rotointellecta@gmail.com</a></li>
               </ul>
             </div>
           </div>
         </div>
 
         {/* Divider & Bottom copyright row */}
-        <div className="mt-12 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-400">
+        <div className="mt-10 sm:mt-12 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-400">
           <p>© 2026 RotoIntellecta AI. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a href="#top" className="hover:text-zinc-700 transition-colors">Back to top ↑</a>
             <a href="tel:8891144334" className="hover:text-zinc-700 transition-colors font-mono">+91 88911 44334</a>
             <a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-700 transition-colors">Rotointellecta@gmail.com</a>
@@ -1078,7 +1152,7 @@ export function Footer() {
       </div>
 
       {/* Large Watermark Text */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[22%] pointer-events-none select-none w-full text-center overflow-hidden">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[22%] pointer-events-none select-none max-w-full w-full text-center overflow-hidden">
         <span className="text-[14vw] font-bold tracking-tight text-zinc-300/40 uppercase whitespace-nowrap block leading-none">
           RotoIntellecta
         </span>
