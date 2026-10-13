@@ -176,14 +176,15 @@ export function ChatWidget() {
       {/* 1. POPUP CARD VIEW (Exact match to uploaded user image) */}
       {viewState === "popup" && (
         <div className="relative mb-2 w-[calc(100vw-1.5rem)] max-w-[340px] sm:max-w-[360px] rounded-3xl bg-[#f5f5f5] p-4 sm:p-5 shadow-2xl border border-zinc-200/90 text-zinc-900 animate-in fade-in slide-in-from-bottom-5 duration-300">
-          {/* Close / minimize button */}
+          {/* Close X button - clearly visible on top-left */}
           <button
             type="button"
             onClick={() => setViewState("minimized")}
-            className="absolute top-3.5 right-3.5 grid size-6 place-items-center rounded-full text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700 transition-colors cursor-pointer"
-            title="Minimize"
+            className="absolute top-3.5 left-3.5 flex size-8 items-center justify-center rounded-full bg-zinc-200/90 hover:bg-zinc-300 text-zinc-700 hover:text-black transition-all cursor-pointer shadow-xs z-20 active:scale-95"
+            title="Close"
+            aria-label="Close"
           >
-            <X className="size-3.5" />
+            <X className="size-4 stroke-[2.5]" />
           </button>
           {/* Top Row with Waving Hand & Avatar */}
           <div className="relative flex flex-col items-center pt-2 pb-1">
@@ -277,9 +278,10 @@ export function ChatWidget() {
               </button>
               <button
                 type="button"
-                onClick={() => setViewState("popup")}
+                onClick={() => setViewState("minimized")}
                 className="grid size-7 place-items-center rounded-lg text-zinc-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
-                title="Back to prompt"
+                title="Close chat"
+                aria-label="Close"
               >
                 <X className="size-4" />
               </button>
