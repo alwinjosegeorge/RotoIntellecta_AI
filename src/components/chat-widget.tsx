@@ -8,7 +8,6 @@ import {
   Mail,
   Minus,
   Sparkles,
-  Bot,
   User,
   CheckCircle2,
 } from "lucide-react";
@@ -20,6 +19,41 @@ interface Message {
   sender: "visitor" | "assistant" | "system";
   text: string;
   timestamp: string;
+}
+
+function RobotAvatarIcon({ className = "size-7" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Top antenna */}
+      <path d="M21 7.5h6v3h-6z M23 10.5v3.5h2v-3.5z" fill="currentColor" />
+      {/* Left ear */}
+      <rect x="6.5" y="21" width="3.5" height="6.5" rx="1.75" fill="currentColor" />
+      {/* Right ear */}
+      <rect x="38" y="21" width="3.5" height="6.5" rx="1.75" fill="currentColor" />
+      {/* Head frame */}
+      <rect
+        x="9"
+        y="14"
+        width="30"
+        height="20.5"
+        rx="6"
+        stroke="currentColor"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Left eye */}
+      <rect x="17.5" y="21" width="3.2" height="6.5" rx="1.6" fill="currentColor" />
+      {/* Right eye */}
+      <rect x="27.3" y="21" width="3.2" height="6.5" rx="1.6" fill="currentColor" />
+    </svg>
+  );
 }
 
 export function ChatWidget() {
@@ -156,8 +190,8 @@ export function ChatWidget() {
             <span className="text-5xl select-none animate-bounce" role="img" aria-label="waving hand">
               👋
             </span>
-            <div className="absolute right-0 top-0 flex size-9 items-center justify-center rounded-full bg-blue-600 text-white shadow-md">
-              <Bot className="size-5" />
+            <div className="absolute right-0 top-0 flex size-9 items-center justify-center rounded-full bg-[#1d68f6] text-white shadow-md">
+              <RobotAvatarIcon className="size-5.5 text-white" />
             </div>
           </div>
 
@@ -217,8 +251,8 @@ export function ChatWidget() {
           {/* Header */}
           <div className="bg-zinc-950 p-4 text-white flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="relative flex size-9 items-center justify-center rounded-xl bg-white/10 text-white font-bold">
-                <Bot className="size-5 text-emerald-400" />
+              <div className="relative flex size-9 items-center justify-center rounded-xl bg-[#1d68f6] text-white font-bold">
+                <RobotAvatarIcon className="size-5.5 text-white" />
                 <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-zinc-950"></span>
               </div>
               <div>
@@ -352,13 +386,13 @@ export function ChatWidget() {
         <button
           type="button"
           onClick={() => setViewState("popup")}
-          className="group relative flex size-14 items-center justify-center rounded-full bg-zinc-950 text-white shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white/20"
+          className="group relative flex size-14 items-center justify-center rounded-full bg-[#1d68f6] hover:bg-[#1556cf] text-white shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white/30 ring-4 ring-blue-500/20"
           aria-label="Open chat"
         >
-          <span className="text-2xl group-hover:scale-110 transition-transform select-none">👋</span>
-          <span className="absolute -top-1 -right-1 flex size-3.5 items-center justify-center">
+          <RobotAvatarIcon className="size-7.5 text-white transition-transform group-hover:scale-110" />
+          <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex size-2.5 rounded-full bg-emerald-500"></span>
+            <span className="relative inline-flex size-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
           </span>
         </button>
       )}
