@@ -441,14 +441,14 @@ export function Navbar() {
 
 export function Hero() {
   return (
-    <section id="top" className="relative min-h-[100svh] lg:min-h-[920px] overflow-hidden bg-ink pt-16 text-ink-foreground flex flex-col justify-between">
+    <section id="top" className="relative min-h-[100svh] lg:min-h-[840px] overflow-hidden bg-ink pt-16 text-ink-foreground flex flex-col justify-between">
       <div className="absolute inset-x-0 bottom-0 h-[64%] lg:left-[33%] lg:top-16 lg:h-[calc(100%-4rem)]">
         <img src={heroImage} alt="Industrial turbine rotor in a workshop" width={1920} height={1280} fetchPriority="high" className="h-full w-full object-cover grayscale" />
         <div className="absolute inset-0 bg-hero-wash" />
         <div className="absolute inset-0 technical-grid opacity-30" />
       </div>
       
-      <div className="relative mx-auto flex flex-1 flex-col justify-between max-w-site w-full px-5 pb-8 pt-8 sm:pt-12 lg:px-8 lg:pb-10 lg:pt-12">
+      <div className="relative mx-auto flex flex-1 flex-col justify-between max-w-site w-full px-5 pb-8 pt-6 sm:pt-10 lg:px-8 lg:pb-10 lg:pt-10">
         <div>
           <div className="grid grid-cols-4 gap-4 lg:grid-cols-12">
             <p className="kicker text-ink-muted">Rotating equipment reliability<br />& industrial artificial intelligence</p>
@@ -457,7 +457,7 @@ export function Hero() {
             </p>
           </div>
 
-          <h1 className="hero-title mt-6 sm:mt-12">
+          <h1 className="hero-title mt-6 sm:mt-8 lg:mt-8">
             <span>Every bearing</span>
             <span>tells a story</span>
             <span className="text-ink-muted">before it fails.</span>
@@ -538,7 +538,7 @@ export function ProblemCards() {
                 <ArrowDownRight className="size-5 transition-transform group-hover:rotate-45" />
               </div>
               <div>
-                <h3 className="text-xl font-bold uppercase leading-snug">{item.title}</h3>
+                <h3 className="text-lg sm:text-xl lg:text-base xl:text-lg font-bold uppercase leading-snug">{item.title}</h3>
                 <p className="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400 line-clamp-2">{item.short}</p>
               </div>
             </a>
