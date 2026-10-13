@@ -14,6 +14,7 @@ import {
   Database,
 } from "lucide-react";
 import { saveChatInquiry, checkNeonHealth, type ChatInquiry } from "@/lib/neon-db";
+import { askGemini } from "@/lib/gemini";
 
 interface Message {
   id: string;
@@ -55,37 +56,6 @@ export function ChatWidget() {
     }
   }, [messages, viewState]);
 
-  // AI Response generator with domain knowledge of RotoIntellecta AI
-  const generateBotReply = (userText: string): string => {
-    const lower = userText.toLowerCase();
-
-    if (lower.includes("phone") || lower.includes("call") || lower.includes("number")) {
-      return "You can reach our engineering desk directly at 📞 +91 88911 44334. We provide 24/7 technical dispatch and emergency vibration support.";
-    }
-
-    if (lower.includes("email") || lower.includes("mail")) {
-      return "You can email our specialists at ✉️ Rotointellecta@gmail.com. Feel free to attach your FFT spectrum waterfall plots or vibration reports for immediate analysis.";
-    }
-
-    if (lower.includes("vibrat") || lower.includes("defect") || lower.includes("bearing") || lower.includes("gear")) {
-      return "Our diagnostic engineers specialize in high vibration RCA, Bently Nevada System1 data surveillance, and spectral demodulation. Would you like our team to review your machine data? You can call us directly at +91 88911 44334 or share your contact number here.";
-    }
-
-    if (lower.includes("train") || lower.includes("mobius") || lower.includes("cmrp") || lower.includes("course") || lower.includes("academy")) {
-      return "RotoIntellecta Academy provides accredited Mobius Institute Category I, II, and III Vibration Analyst training, as well as SMRP CMRP certification prep. Would you like upcoming batch dates?";
-    }
-
-    if (lower.includes("pm") || lower.includes("maintenance") || lower.includes("asset") || lower.includes("fmea")) {
-      return "We deliver Strategic Asset Management services including PM Optimization, Failure Modes & Effects Analysis (FMEA), and reliability KPI dashboards to eliminate repetitive plant failures.";
-    }
-
-    if (lower.includes("price") || lower.includes("cost") || lower.includes("quote") || lower.includes("rate")) {
-      return "Project pricing depends on machine criticality, diagnostic scope, or training batch size. Please leave your phone number or email, and our lead engineer will provide a prompt proposal.";
-    }
-
-    return "Thank you for reaching out! Our reliability engineers specialize in turbomachinery diagnostics, remote System1 surveillance, and reliability training. Leave your phone number or query details, or call us directly at +91 88911 44334.";
-  };
-
   const handleSendMessage = async (customText?: string) => {
     const textToSend = customText || inputValue.trim();
     if (!textToSend || isSending) return;
@@ -100,7 +70,8 @@ export function ChatWidget() {
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
-    setMessages((prev) => [...prev, newMsg]);
+    const nextMessages = [...messages, newMsg];
+    setMessages(nextMessages);
 
     // Open chat window if sending from popup view
     if (viewState === "popup") {
@@ -120,9 +91,14 @@ export function ChatWidget() {
       console.warn("Neon persistence note:", e);
     }
 
-    // Generate intelligent assistant reply after short realistic delay
-    setTimeout(async () => {
-      const replyText = generateBotReply(textToSend);
+    // Ask Gemini AI with full conversation context
+    try {
+      const history = nextMessages.map((m) => ({
+        sender: m.sender,
+        text: m.text,
+      }));
+      const replyText = await askGemini(textToSend, history);
+
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: "assistant",
@@ -131,13 +107,12 @@ export function ChatWidget() {
       };
 
       setMessages((prev) => [...prev, botMsg]);
-      setIsSending(false);
 
       // Save bot message to Neon PostgreSQL
       try {
         await saveChatInquiry({
           sessionId,
-          name: "RotoIntellecta Assistant",
+          name: "RotoIntellecta AI (Gemini)",
           contact: "Rotointellecta@gmail.com",
           message: replyText,
           sender: "assistant",
@@ -145,7 +120,18 @@ export function ChatWidget() {
       } catch (e) {
         console.warn("Neon persistence note:", e);
       }
-    }, 700);
+    } catch (err) {
+      console.error("Gemini assistant error:", err);
+      const fallbackMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        sender: "assistant",
+        text: "Thank you for reaching out! You can reach our rotating machinery engineering desk directly at 📞 +91 88911 44334 or ✉️ Rotointellecta@gmail.com.",
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+      setMessages((prev) => [...prev, fallbackMsg]);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleQuickQuestion = (q: string) => {
@@ -219,7 +205,7 @@ export function ChatWidget() {
           <div className="mt-2.5 flex items-center justify-between text-[10px] text-zinc-400 px-1 font-mono">
             <span className="flex items-center gap-1">
               <Database className="size-3 text-emerald-500" />
-              <span>Neon Postgres Live</span>
+              <span>Gemini AI & Neon DB</span>
             </span>
             <span>RotoIntellecta AI</span>
           </div>
@@ -240,10 +226,10 @@ export function ChatWidget() {
                 <h4 className="text-xs font-bold tracking-tight text-white flex items-center gap-1.5">
                   RotoIntellecta AI Desk
                   <span className="rounded bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.2 text-[9px] font-mono">
-                    LIVE
+                    GEMINI LIVE
                   </span>
                 </h4>
-                <p className="text-[10px] text-zinc-400 font-mono">Neon DB Sync Active</p>
+                <p className="text-[10px] text-zinc-400 font-mono">Gemini Flash & Neon DB</p>
               </div>
             </div>
 
