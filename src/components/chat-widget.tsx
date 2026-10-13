@@ -23,8 +23,8 @@ interface Message {
 }
 
 export function ChatWidget() {
-  // Widget states: 'popup' (initial state matching uploaded screenshot), 'chat' (open conversation), 'minimized' (just bubble)
-  const [viewState, setViewState] = useState<"popup" | "chat" | "minimized">("popup");
+  // Widget states: 'popup' (card matching screenshot), 'chat' (open conversation), 'minimized' (floating icon)
+  const [viewState, setViewState] = useState<"popup" | "chat" | "minimized">("minimized");
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -141,7 +141,16 @@ export function ChatWidget() {
     <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       {/* 1. POPUP CARD VIEW (Exact match to uploaded user image) */}
       {viewState === "popup" && (
-        <div className="mb-2 w-[calc(100vw-1.5rem)] max-w-[340px] sm:max-w-[360px] rounded-3xl bg-[#f5f5f5] p-4 sm:p-5 shadow-2xl border border-zinc-200/90 text-zinc-900 animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div className="relative mb-2 w-[calc(100vw-1.5rem)] max-w-[340px] sm:max-w-[360px] rounded-3xl bg-[#f5f5f5] p-4 sm:p-5 shadow-2xl border border-zinc-200/90 text-zinc-900 animate-in fade-in slide-in-from-bottom-5 duration-300">
+          {/* Close / minimize button */}
+          <button
+            type="button"
+            onClick={() => setViewState("minimized")}
+            className="absolute top-3.5 right-3.5 grid size-6 place-items-center rounded-full text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700 transition-colors cursor-pointer"
+            title="Minimize"
+          >
+            <X className="size-3.5" />
+          </button>
           {/* Top Row with Waving Hand & Avatar */}
           <div className="relative flex flex-col items-center pt-2 pb-1">
             <span className="text-5xl select-none animate-bounce" role="img" aria-label="waving hand">
