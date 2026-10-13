@@ -8,9 +8,12 @@ import {
   Check,
   RefreshCw,
   Eye,
+  EyeOff,
   FileText,
   Sparkles,
   ShieldCheck,
+  Lock,
+  LogOut,
   Image as ImageIcon,
 } from "lucide-react";
 import {
@@ -36,6 +39,10 @@ export const Route = createFileRoute("/admin")({
   component: AdminDashboard,
 });
 
+const ADMIN_PASSWORD =
+  (typeof import.meta !== "undefined" && (import.meta as any).env?.VITE_ADMIN_PASSWORD) ||
+  "5555";
+
 const PRESET_IMAGES = [
   { label: "Gas Turbine Hall", url: turbineImage },
   { label: "Bearing Envelope Diagnostic", url: bearingImage },
@@ -43,6 +50,39 @@ const PRESET_IMAGES = [
 ];
 
 function AdminDashboard() {
+  // Security Authentication State (Default password: 5555)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("roto_admin_authenticated") === "true";
+    }
+    return false;
+  });
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput.trim() === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setPasswordError("");
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("roto_admin_authenticated", "true");
+      }
+    } else {
+      setPasswordError("Incorrect password. Please enter valid PIN (5555).");
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setPasswordInput("");
+    setPasswordError("");
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("roto_admin_authenticated");
+    }
+  };
+
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -154,6 +194,87 @@ function AdminDashboard() {
     }
   };
 
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0c] text-white flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden font-sans">
+        {/* Background glow and grid */}
+        <div className="absolute inset-0 technical-grid opacity-20 pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative w-full max-w-md rounded-3xl border border-zinc-800 bg-[#121216]/95 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
+          {/* Header Icon */}
+          <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white shadow-inner mb-6">
+            <Lock className="size-6 text-emerald-400" />
+          </div>
+
+          <div className="text-center space-y-2 mb-8">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+              Admin Authentication
+            </h1>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Restricted portal. Please enter the administrative password to manage Case Studies & Field Notes.
+            </p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-2">
+                Enter Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Password (e.g. 5555)"
+                  value={passwordInput}
+                  onChange={(e) => {
+                    setPasswordInput(e.target.value);
+                    if (passwordError) setPasswordError("");
+                  }}
+                  autoFocus
+                  className="w-full rounded-xl bg-zinc-900/90 border border-zinc-800 px-4 py-3.5 text-base text-white placeholder-zinc-500 focus:outline-hidden focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-mono tracking-widest text-center"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors cursor-pointer p-1"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                </button>
+              </div>
+              {passwordError && (
+                <p className="mt-2 text-xs text-rose-400 text-center font-mono">
+                  {passwordError}
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={!passwordInput.trim()}
+              className="w-full rounded-xl bg-white hover:bg-zinc-200 text-black py-3.5 text-xs font-bold uppercase tracking-wider shadow-lg transition-all active:scale-98 disabled:opacity-40 cursor-pointer"
+            >
+              Unlock Admin Portal
+            </button>
+          </form>
+
+          <div className="mt-8 pt-6 border-t border-zinc-900 text-center">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="size-3.5" /> Return to Website
+            </Link>
+          </div>
+        </div>
+
+        <p className="mt-8 text-[11px] font-mono text-zinc-600">
+          RotoIntellecta AI • Strategic Reliability Operations
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-zinc-100 font-sans pb-20">
       {/* Top Admin Navbar */}
@@ -177,6 +298,13 @@ function AdminDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-rose-400 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+              title="Lock admin session"
+            >
+              <LogOut className="size-3.5" /> Lock
+            </button>
             <button
               onClick={handleResetDefaults}
               className="hidden sm:inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-200 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg transition-colors"
