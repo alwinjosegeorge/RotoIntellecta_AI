@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowDownRight, ArrowRight, CheckCircle2, ChevronDown, Award, Cpu, Flame, GraduationCap, HardHat, Layers, Menu, ShieldCheck, Sparkles, X, Wrench, Phone, Mail } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUp, CheckCircle2, ChevronDown, Award, Cpu, Flame, GraduationCap, HardHat, Layers, Menu, ShieldCheck, Sparkles, X, Wrench, Phone, Mail } from "lucide-react";
 
 import heroImage from "@/assets/industrial-hero.jpg";
 import bearingImage from "@/assets/bearing-diagnostic.jpg";
@@ -458,9 +458,9 @@ export function Hero() {
           </div>
 
           <h1 className="hero-title mt-6 sm:mt-8 lg:mt-8">
-            <span>Every bearing</span>
-            <span>tells a story</span>
-            <span className="text-ink-muted">before it fails.</span>
+            <span>We Translate</span>
+            <span>Machine Language</span>
+            <span className="text-ink-muted">for You.</span>
           </h1>
 
           {/* 5 Core Pillars Bar */}
@@ -516,6 +516,28 @@ export function Hero() {
   );
 }
 
+export function BackToTop({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className={`mt-12 sm:mt-16 flex items-center justify-between border-t pt-6 ${dark ? "border-ink-line" : "border-border"}`}>
+      <span className={`font-mono text-[10px] uppercase tracking-wider ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+        RotoIntellecta AI
+      </span>
+      <a
+        href="#top"
+        className={`group inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider transition-all py-1.5 px-3 rounded-lg border ${
+          dark
+            ? "border-white/10 hover:border-white/30 text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10"
+            : "border-zinc-200 hover:border-zinc-400 text-zinc-600 hover:text-zinc-950 bg-zinc-50 hover:bg-zinc-100"
+        }`}
+        title="Back to Top"
+      >
+        <span>Back to Top</span>
+        <ArrowUp className="size-3.5 transition-transform group-hover:-translate-y-0.5" />
+      </a>
+    </div>
+  );
+}
+
 export function ProblemCards() {
   return (
     <section id="services" className="bg-white py-16 lg:py-24 border-b border-border">
@@ -544,6 +566,7 @@ export function ProblemCards() {
             </a>
           ))}
         </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -581,6 +604,7 @@ export function RemoteSupportSection() {
             </article>
           ))}
         </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -590,25 +614,28 @@ export function AssetManagement() {
   const service = services[1];
   return (
     <section id={service.id} className="bg-white py-24 lg:py-32 border-b border-border">
-      <div className="mx-auto grid max-w-site gap-14 px-5 lg:grid-cols-12 lg:px-8">
-        <div className="lg:col-span-5">
-          <p className="kicker text-muted-foreground">02 / Strategic Asset Management</p>
-          <h2 className="section-title text-zinc-950 mt-4">MOVE FROM FIREFIGHTING TO VALUE-DRIVEN FORESIGHT.</h2>
-          <p className="body-copy mt-6 text-zinc-600">
-            We help organizations transform maintenance into a proactive, value-driven function that improves asset performance and reduces total lifecycle costs.
-          </p>
+      <div className="mx-auto max-w-site px-5 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="kicker text-muted-foreground">02 / Strategic Asset Management</p>
+            <h2 className="section-title text-zinc-950 mt-4">MOVE FROM FIREFIGHTING TO VALUE-DRIVEN FORESIGHT.</h2>
+            <p className="body-copy mt-6 text-zinc-600">
+              We help organizations transform maintenance into a proactive, value-driven function that improves asset performance and reduces total lifecycle costs.
+            </p>
+          </div>
+          <div className="lg:col-span-7 space-y-6">
+            {service.points.map((pt, i) => (
+              <article className="grid grid-cols-[64px_minmax(0,1fr)] gap-4 border-t border-border pt-6" key={pt.name}>
+                <span className="text-4xl font-light text-zinc-300">0{i + 1}</span>
+                <div>
+                  <h3 className="text-xl font-bold text-zinc-950">{pt.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-600">{pt.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="lg:col-span-7 space-y-6">
-          {service.points.map((pt, i) => (
-            <article className="grid grid-cols-[64px_minmax(0,1fr)] gap-4 border-t border-border pt-6" key={pt.name}>
-              <span className="text-4xl font-light text-zinc-300">0{i + 1}</span>
-              <div>
-                <h3 className="text-xl font-bold text-zinc-950">{pt.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">{pt.desc}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -654,6 +681,7 @@ export function PredictiveMonitoring() {
             ))}
           </div>
         </div>
+        <BackToTop dark />
       </div>
     </section>
   );
@@ -689,6 +717,7 @@ export function AISolutions() {
             ))}
           </div>
         </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -741,6 +770,7 @@ export function ExpertiseSection() {
             ))}
           </div>
         </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -804,6 +834,7 @@ export function TrainingSection() {
             </div>
           </article>
         </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -894,6 +925,7 @@ export function CaseStudies() {
             );
           })}
         </div>
+        <BackToTop dark />
       </div>
     </section>
   );
@@ -932,6 +964,7 @@ export function TributeSection() {
             Our mentor, our inspiration, our light and our guidance. His spirit of perseverance and dedication continues to guide our mission at RotoIntellecta AI.
           </p>
         </div>
+        <BackToTop />
       </div>
     </section>
   );
@@ -1092,6 +1125,7 @@ export function ContactSection() {
             </div>
           </div>
         </div>
+        <BackToTop dark />
       </div>
     </section>
   );
