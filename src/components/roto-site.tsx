@@ -5,6 +5,8 @@ import heroImage from "@/assets/industrial-hero.jpg";
 import bearingImage from "@/assets/bearing-diagnostic.jpg";
 import turbineImage from "@/assets/turbine-hall.jpg";
 import nelsonSirImage from "@/assets/nelson-sir.jpg";
+import logoDark from "@/assets/roto-logo-dark.png";
+import logoLight from "@/assets/roto-logo-light.png";
 import { ChatWidget } from "@/components/chat-widget";
 import { getStoredCaseStudies, syncCaseStudiesFromDatabase, type CaseStudy } from "@/lib/blog-storage";
 
@@ -318,9 +320,14 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-ink/90 text-ink-foreground backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-site items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
-        <a href="#top" className="flex items-center gap-2.5 text-sm font-bold uppercase tracking-normal">
-          <div className="size-6 rounded bg-white text-black flex items-center justify-center font-black text-xs">R</div>
-          <span>RotoIntellecta <span className="text-ink-muted">AI</span></span>
+        <a href="#top" className="flex items-center group py-1" aria-label="RotoIntellecta AI Home">
+          <img
+            src={logoDark}
+            alt="RotoIntellecta AI - Industrial Solutions"
+            className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity group-hover:opacity-90"
+            width={185}
+            height={36}
+          />
         </a>
         
         {/* Desktop Navigation Links */}
@@ -371,9 +378,14 @@ export function Navbar() {
       {open && (
         <div className="fixed inset-0 z-50 flex min-h-dvh flex-col bg-ink/98 backdrop-blur-xl p-5 text-ink-foreground animate-in fade-in duration-200 overflow-y-auto">
           <div className="flex items-center justify-between border-b border-ink-line pb-4">
-            <div className="flex items-center gap-2">
-              <div className="size-6 rounded bg-white text-black flex items-center justify-center font-black text-xs">R</div>
-              <span className="text-sm font-bold uppercase tracking-wider">RotoIntellecta AI</span>
+            <div className="flex items-center">
+              <img
+                src={logoDark}
+                alt="RotoIntellecta AI - Industrial Solutions"
+                className="h-8 w-auto object-contain"
+                width={165}
+                height={32}
+              />
             </div>
             <button
               type="button"
@@ -1140,12 +1152,15 @@ export function Footer() {
           {/* Left Column: Brand info */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2.5">
-                <div className="size-8 rounded-lg bg-black text-white flex items-center justify-center font-black text-sm">
-                  R
-                </div>
-                <span className="text-xl font-bold tracking-tight text-zinc-950">RotoIntellecta AI</span>
-              </div>
+              <a href="#top" className="inline-block group py-1" aria-label="RotoIntellecta AI Home">
+                <img
+                  src={logoLight}
+                  alt="RotoIntellecta AI - Industrial Solutions"
+                  className="h-9 sm:h-10 w-auto object-contain transition-opacity group-hover:opacity-90"
+                  width={206}
+                  height={40}
+                />
+              </a>
               <p className="mt-4 sm:mt-5 text-sm text-zinc-500 leading-relaxed max-w-xs">
                 Condition monitoring, reliability engineering training, and predictive AI solutions for mission-critical rotating machinery.
               </p>

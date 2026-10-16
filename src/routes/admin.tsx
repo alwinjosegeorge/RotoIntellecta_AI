@@ -28,6 +28,7 @@ import {
 
 import turbineImage from "@/assets/turbine-hall.jpg";
 import bearingImage from "@/assets/bearing-diagnostic.jpg";
+import logoDark from "@/assets/roto-logo-dark.png";
 import heroImage from "@/assets/industrial-hero.jpg";
 
 export const Route = createFileRoute("/admin")({
@@ -219,12 +220,19 @@ function AdminDashboard() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative w-full max-w-md rounded-3xl border border-zinc-800 bg-[#121216]/95 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
-          {/* Header Icon */}
-          <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white shadow-inner mb-6">
-            <Lock className="size-6 text-emerald-400" />
+          {/* Header Logo */}
+          <div className="flex justify-center mb-6">
+            <img
+              src={logoDark}
+              alt="RotoIntellecta AI"
+              className="h-10 sm:h-11 w-auto object-contain"
+            />
           </div>
 
           <div className="text-center space-y-2 mb-8">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-xs font-mono mb-1">
+              <Lock className="size-3" /> Secure Portal
+            </div>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Admin Authentication
             </h1>
@@ -304,13 +312,17 @@ function AdminDashboard() {
             >
               <ArrowLeft className="size-3.5" /> Live Website
             </Link>
-            <div className="flex items-center gap-2">
-              <div className="size-6 rounded bg-white text-black font-black text-xs flex items-center justify-center">
-                R
-              </div>
-              <h1 className="text-base font-bold tracking-tight text-white">
-                RotoIntellecta <span className="text-zinc-400 font-normal">/ Case Studies Admin</span>
-              </h1>
+            <div className="flex items-center gap-3">
+              <img
+                src={logoDark}
+                alt="RotoIntellecta AI"
+                className="h-7 sm:h-8 w-auto object-contain"
+                width={155}
+                height={30}
+              />
+              <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 border-l border-zinc-700 pl-3 hidden sm:inline">
+                Case Studies Admin
+              </span>
             </div>
           </div>
 
