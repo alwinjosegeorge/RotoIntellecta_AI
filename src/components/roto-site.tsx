@@ -320,35 +320,35 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-ink/90 text-ink-foreground backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-site items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
-        <a href="#top" className="flex items-center group py-1" aria-label="RotoIntellecta AI Home">
+        <a href="#top" className="flex items-center group shrink-0 py-1" aria-label="RotoIntellecta AI Home">
           <img
             src={logoDark}
             alt="RotoIntellecta AI - Industrial Solutions"
-            className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-opacity group-hover:opacity-90"
-            width={185}
+            className="h-8 sm:h-8.5 lg:h-9 w-auto object-contain transition-opacity group-hover:opacity-90"
+            width={180}
             height={36}
           />
         </a>
         
         {/* Desktop Navigation Links */}
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-5 lg:gap-6 xl:gap-8 lg:flex ml-8 lg:ml-12 xl:ml-16">
           {navItems.map(([label, href]) => (
-            <a className="nav-link" href={href} key={href}>{label}</a>
+            <a className="nav-link whitespace-nowrap" href={href} key={href}>{label}</a>
           ))}
         </div>
 
         {/* Desktop Contact Actions */}
-        <div className="ml-auto hidden items-center gap-5 lg:flex">
+        <div className="ml-auto hidden items-center gap-4 xl:gap-6 lg:flex shrink-0">
           <a
             href="tel:8891144334"
-            className="flex items-center gap-1.5 text-xs font-mono text-zinc-300 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs font-mono text-zinc-300 hover:text-white transition-colors whitespace-nowrap"
           >
             <Phone className="size-3.5 text-emerald-400" />
             <span>+91 88911 44334</span>
           </a>
           <a
             href="#contact"
-            className="flex items-center gap-1.5 text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors whitespace-nowrap"
           >
             Talk to an expert <ArrowDownRight className="size-3.5" />
           </a>
