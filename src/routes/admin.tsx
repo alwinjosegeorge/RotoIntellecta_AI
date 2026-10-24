@@ -26,10 +26,10 @@ import {
   type CaseStudy,
 } from "@/lib/blog-storage";
 
-import turbineImage from "@/assets/turbine-hall.jpg";
-import bearingImage from "@/assets/bearing-diagnostic.jpg";
-import logoDark from "@/assets/roto-logo-dark.png";
-import heroImage from "@/assets/industrial-hero.jpg";
+import turbineImage from "@/assets/turbine-hall.webp";
+import bearingImage from "@/assets/bearing-diagnostic.webp";
+import logoDark from "@/assets/roto-logo-dark.webp";
+import heroImage from "@/assets/industrial-hero.webp";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({

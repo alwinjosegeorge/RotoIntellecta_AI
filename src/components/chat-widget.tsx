@@ -230,6 +230,7 @@ export function ChatWidget() {
             <input
               type="text"
               placeholder="Write a message..."
+              aria-label="Write a message to our engineering desk"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               enterKeyHint="send"
@@ -370,6 +371,7 @@ export function ChatWidget() {
             <input
               type="text"
               placeholder="Write a message..."
+              aria-label="Write a message to our engineering desk"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               enterKeyHint="send"

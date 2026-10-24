@@ -1,6 +1,6 @@
-import turbineImage from "@/assets/turbine-hall.jpg";
-import bearingImage from "@/assets/bearing-diagnostic.jpg";
-import heroImage from "@/assets/industrial-hero.jpg";
+import turbineImage from "@/assets/turbine-hall.webp";
+import bearingImage from "@/assets/bearing-diagnostic.webp";
+import heroImage from "@/assets/industrial-hero.webp";
 import { queryNeon } from "./neon-db";
 
 export type CaseStudy = {

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDownRight, ArrowRight, ArrowUp, CheckCircle2, ChevronDown, Award, Cpu, Flame, GraduationCap, HardHat, Layers, Menu, ShieldCheck, Sparkles, X, Wrench, Phone, Mail } from "lucide-react";
 
-import heroImage from "@/assets/industrial-hero.jpg";
-import bearingImage from "@/assets/bearing-diagnostic.jpg";
-import turbineImage from "@/assets/turbine-hall.jpg";
-import nelsonSirImage from "@/assets/nelson-sir.jpg";
-import logoDark from "@/assets/roto-logo-dark.png";
-import logoLight from "@/assets/roto-logo-light.png";
+import heroImage from "@/assets/industrial-hero.webp";
+import bearingImage from "@/assets/bearing-diagnostic.webp";
+import turbineImage from "@/assets/turbine-hall.webp";
+import nelsonSirImage from "@/assets/nelson-sir.webp";
+import logoDark from "@/assets/roto-logo-dark.webp";
+import logoLight from "@/assets/roto-logo-light.webp";
 import { ChatWidget } from "@/components/chat-widget";
 import { getStoredCaseStudies, syncCaseStudiesFromDatabase, type CaseStudy } from "@/lib/blog-storage";
 
@@ -515,7 +515,7 @@ export function Hero() {
 export function BackToTop({ dark = false }: { dark?: boolean }) {
   return (
     <div className={`mt-12 sm:mt-16 flex items-center justify-between border-t pt-6 ${dark ? "border-ink-line" : "border-border"}`}>
-      <span className={`font-mono text-[10px] uppercase tracking-wider ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+      <span className={`font-mono text-[10px] uppercase tracking-wider ${dark ? "text-zinc-500" : "text-zinc-600"}`}>
         RotoIntellecta AI
       </span>
       <a
@@ -523,7 +523,7 @@ export function BackToTop({ dark = false }: { dark?: boolean }) {
         className={`group inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider transition-all py-1.5 px-3 rounded-lg border ${
           dark
             ? "border-white/10 hover:border-white/30 text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10"
-            : "border-zinc-200 hover:border-zinc-400 text-zinc-600 hover:text-zinc-950 bg-zinc-50 hover:bg-zinc-100"
+            : "border-zinc-300 hover:border-zinc-500 text-zinc-700 hover:text-zinc-950 bg-zinc-50 hover:bg-zinc-100"
         }`}
         title="Back to Top"
       >
@@ -539,8 +539,8 @@ export function ProblemCards() {
     <section id="services" className="bg-white py-16 lg:py-24 border-b border-border">
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="mb-10 grid grid-cols-4 gap-4 lg:grid-cols-12">
-          <p className="kicker text-muted-foreground">Solutions / 01—05</p>
-          <p className="col-span-4 text-lg lg:col-span-6 lg:col-start-7 text-zinc-800 font-medium">
+          <p className="kicker text-zinc-600">Solutions / 01—05</p>
+          <p className="col-span-4 text-lg lg:col-span-6 lg:col-start-7 text-zinc-900 font-medium">
             Select an operational discipline or explore our complete rotating equipment reliability suite.
           </p>
         </div>
@@ -552,12 +552,12 @@ export function ProblemCards() {
               className="group flex min-h-72 flex-col justify-between border border-border bg-white p-6 transition-all hover:bg-zinc-950 hover:text-white rounded-xl shadow-xs"
             >
               <div className="flex items-start justify-between">
-                <span className="font-mono text-xs text-zinc-400 group-hover:text-zinc-500">{item.no}</span>
+                <span className="font-mono text-xs text-zinc-500 group-hover:text-zinc-400">{item.no}</span>
                 <ArrowDownRight className="size-5 transition-transform group-hover:rotate-45" />
               </div>
               <div>
                 <h3 className="text-lg sm:text-xl lg:text-base xl:text-lg font-bold uppercase leading-snug">{item.title}</h3>
-                <p className="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400 line-clamp-2">{item.short}</p>
+                <p className="mt-3 text-xs text-zinc-600 group-hover:text-zinc-300 line-clamp-2">{item.short}</p>
               </div>
             </a>
           ))}
@@ -575,9 +575,9 @@ export function RemoteSupportSection() {
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="kicker text-muted-foreground">01 / Remote Engineering</p>
+            <p className="kicker text-zinc-600">01 / Remote Engineering</p>
             <h2 className="section-title text-zinc-950 mt-4">IMMEDIATE EXPERT SUPPORT. NO LOGISTICAL DELAYS.</h2>
-            <p className="body-copy mt-6 text-zinc-600">
+            <p className="body-copy mt-6 text-zinc-700">
               Access world-class expertise for your turbomachinery without the logistical delay and expense of site visits. Our remote diagnostic center provides immediate support for high-stakes mechanical anomalies.
             </p>
           </div>
@@ -594,9 +594,9 @@ export function RemoteSupportSection() {
         <div className="mt-16 grid gap-8 md:grid-cols-3">
           {service.points.map((pt, i) => (
             <article className="border-t border-border pt-6" key={pt.name}>
-              <span className="font-mono text-[10px] text-zinc-400">REMOTE.0{i + 1}</span>
+              <span className="font-mono text-[10px] text-zinc-600">REMOTE.0{i + 1}</span>
               <h3 className="mt-4 text-xl font-bold text-zinc-950">{pt.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-zinc-600">{pt.desc}</p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-700">{pt.desc}</p>
             </article>
           ))}
         </div>
@@ -613,19 +613,19 @@ export function AssetManagement() {
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="kicker text-muted-foreground">02 / Strategic Asset Management</p>
+            <p className="kicker text-zinc-600">02 / Strategic Asset Management</p>
             <h2 className="section-title text-zinc-950 mt-4">MOVE FROM FIREFIGHTING TO VALUE-DRIVEN FORESIGHT.</h2>
-            <p className="body-copy mt-6 text-zinc-600">
+            <p className="body-copy mt-6 text-zinc-700">
               We help organizations transform maintenance into a proactive, value-driven function that improves asset performance and reduces total lifecycle costs.
             </p>
           </div>
           <div className="lg:col-span-7 space-y-6">
             {service.points.map((pt, i) => (
               <article className="grid grid-cols-[64px_minmax(0,1fr)] gap-4 border-t border-border pt-6" key={pt.name}>
-                <span className="text-4xl font-light text-zinc-300">0{i + 1}</span>
+                <span className="text-4xl font-light text-zinc-400">0{i + 1}</span>
                 <div>
                   <h3 className="text-xl font-bold text-zinc-950">{pt.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-600">{pt.desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-700">{pt.desc}</p>
                 </div>
               </article>
             ))}
@@ -690,9 +690,9 @@ export function AISolutions() {
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="kicker text-muted-foreground">04 / AI Operational Solutions</p>
+            <p className="kicker text-zinc-600">04 / AI Operational Solutions</p>
             <h2 className="section-title text-zinc-950 mt-4">INTELLIGENCE TOOLS FOR FIELD & INVENTORY.</h2>
-            <p className="body-copy mt-6 text-zinc-600">
+            <p className="body-copy mt-6 text-zinc-700">
               Streamline back-end operations and field-level support with specialized industrial AI tools designed to eliminate guesswork.
             </p>
           </div>
@@ -700,12 +700,12 @@ export function AISolutions() {
             {service.points.map((pt, i) => (
               <article className="border border-border bg-zinc-50 p-8 rounded-2xl flex flex-col justify-between" key={pt.name}>
                 <div>
-                  <span className="font-mono text-xs text-zinc-400">AI / 0{i + 1}</span>
+                  <span className="font-mono text-xs text-zinc-600 font-semibold">AI / 0{i + 1}</span>
                   <h3 className="mt-6 text-2xl font-bold text-zinc-950">{pt.name}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-zinc-600">{pt.desc}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-zinc-700">{pt.desc}</p>
                 </div>
                 <div className="mt-8 pt-4 border-t border-zinc-200">
-                  <span className="font-mono text-[10px] uppercase text-zinc-500">
+                  <span className="font-mono text-[10px] uppercase text-zinc-600 font-medium">
                     {i === 0 ? "Output: Dynamic SKU Spares Policy" : "Output: Real-time Field Troubleshooting"}
                   </span>
                 </div>
@@ -732,14 +732,14 @@ export function ExpertiseSection() {
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="kicker text-muted-foreground">05 / Engineering Authority</p>
+            <p className="kicker text-zinc-600">05 / Engineering Authority</p>
             <h2 className="section-title text-zinc-950 mt-4">18 YEARS OF TURBOMACHINERY EXCELLENCE.</h2>
           </div>
           <div className="flex items-end lg:col-span-4 lg:col-start-9">
             <div className="border border-zinc-200 bg-zinc-50 p-6 rounded-2xl w-full">
               <span className="text-4xl sm:text-5xl font-extrabold text-zinc-950 tracking-tight">~$5M / Year</span>
               <p className="mt-2 text-xs font-semibold text-zinc-700 uppercase tracking-wide">Proven OpEx Savings Delivered</p>
-              <p className="mt-1 text-xs text-zinc-500">Achieved through reliability strategies & PdM with &lt;$1M investment.</p>
+              <p className="mt-1 text-xs text-zinc-600">Achieved through reliability strategies & PdM with &lt;$1M investment.</p>
             </div>
           </div>
         </div>
@@ -747,10 +747,10 @@ export function ExpertiseSection() {
         <div className="mt-16 grid gap-10 lg:grid-cols-12 items-center">
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-2xl font-bold text-zinc-950">Proven Results. Smarter Maintenance.</h3>
-            <p className="text-sm leading-relaxed text-zinc-600">
+            <p className="text-sm leading-relaxed text-zinc-700">
               Our engineers bring 18 years of specialized experience in heavy turbomachinery—including gas turbines, compressors, multi-stage pumps, mechanical & gas seals, and condition monitoring. We possess profound expertise in interpreting vibration data (System1 and condition monitoring), delivering high-impact technical training, and optimizing PM schedules.
             </p>
-            <p className="text-sm leading-relaxed text-zinc-600">
+            <p className="text-sm leading-relaxed text-zinc-700">
               Our team possesses a unique dual expertise in core mechanical engineering and developing advanced AI solutions specifically tailored for complex industrial problems.
             </p>
           </div>
@@ -761,7 +761,7 @@ export function ExpertiseSection() {
                   <ShieldCheck className="size-5" />
                   <h4 className="font-bold text-lg">{cred.title}</h4>
                 </div>
-                <p className="mt-3 text-xs text-zinc-600 leading-relaxed">{cred.desc}</p>
+                <p className="mt-3 text-xs text-zinc-700 leading-relaxed">{cred.desc}</p>
               </div>
             ))}
           </div>
@@ -780,10 +780,10 @@ export function TrainingSection() {
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="kicker text-muted-foreground">06 / Training Academy</p>
+            <p className="kicker text-zinc-600">06 / Training Academy</p>
             <h2 className="section-title text-zinc-950 mt-4">BUILD SKILLS. GET CERTIFIED. TRANSFORM MAINTENANCE.</h2>
           </div>
-          <p className="body-copy self-end text-zinc-600 lg:col-span-5">
+          <p className="body-copy self-end text-zinc-700 lg:col-span-5">
             Empower your workforce with world-class certifications and industry-proven technical expertise. Our interactive online training is designed for working professionals worldwide.
           </p>
         </div>
@@ -792,42 +792,42 @@ export function TrainingSection() {
           <article className="border border-border p-8 rounded-2xl bg-zinc-50 flex flex-col justify-between">
             <div>
               <span className="text-4xl font-light text-zinc-400">01</span>
-              <p className="mt-6 font-mono text-xs uppercase text-zinc-500">ISO 18436-2 Track</p>
+              <p className="mt-6 font-mono text-xs uppercase text-zinc-600 font-semibold">ISO 18436-2 Track</p>
               <h3 className="mt-2 text-2xl font-bold text-zinc-950">Mobius Institute Cat I, II & III</h3>
-              <p className="mt-4 text-sm leading-relaxed text-zinc-600">
+              <p className="mt-4 text-sm leading-relaxed text-zinc-700">
                 Expert-led vibration analysis certification pathways. Spectrum & waveform diagnostics, fault frequencies, cross-channel phase, and rotor dynamics.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-zinc-200">
-              <span className="text-xs font-semibold text-zinc-900">Taught by &gt;90% Exam Distinction Instructors</span>
+              <span className="text-xs font-semibold text-zinc-950">Taught by &gt;90% Exam Distinction Instructors</span>
             </div>
           </article>
 
           <article className="border border-border p-8 rounded-2xl bg-zinc-50 flex flex-col justify-between">
             <div>
               <span className="text-4xl font-light text-zinc-400">02</span>
-              <p className="mt-6 font-mono text-xs uppercase text-zinc-500">SMRP Body of Knowledge</p>
+              <p className="mt-6 font-mono text-xs uppercase text-zinc-600 font-semibold">SMRP Body of Knowledge</p>
               <h3 className="mt-2 text-2xl font-bold text-zinc-950">CMRP Certification Coaching</h3>
-              <p className="mt-4 text-sm leading-relaxed text-zinc-600">
+              <p className="mt-4 text-sm leading-relaxed text-zinc-700">
                 Master all 5 Pillars of the SMRP Body of Knowledge (Business, Process Reliability, Equipment Reliability, People Skills, Work Management) and prepare confidently.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-zinc-200">
-              <span className="text-xs font-semibold text-zinc-900">Comprehensive Exam Prep & Mentorship</span>
+              <span className="text-xs font-semibold text-zinc-950">Comprehensive Exam Prep & Mentorship</span>
             </div>
           </article>
 
           <article className="border border-border p-8 rounded-2xl bg-zinc-50 flex flex-col justify-between">
             <div>
               <span className="text-4xl font-light text-zinc-400">03</span>
-              <p className="mt-6 font-mono text-xs uppercase text-zinc-500">Controls & Reliability</p>
+              <p className="mt-6 font-mono text-xs uppercase text-zinc-600 font-semibold">Controls & Reliability</p>
               <h3 className="mt-2 text-2xl font-bold text-zinc-950">ISA-CAP / PLC & SCADA</h3>
-              <p className="mt-4 text-sm leading-relaxed text-zinc-600">
+              <p className="mt-4 text-sm leading-relaxed text-zinc-700">
                 Practical preparation for ISA Certified Automation Professional, SCADA alarm rationalization, historian integration, and Reliability-Centered Maintenance.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-zinc-200">
-              <span className="text-xs font-semibold text-zinc-900">Hands-on Industrial Automation Workflows</span>
+              <span className="text-xs font-semibold text-zinc-950">Hands-on Industrial Automation Workflows</span>
             </div>
           </article>
         </div>
@@ -1146,24 +1146,24 @@ export function Footer() {
                   height={48}
                 />
               </a>
-              <p className="mt-4 sm:mt-5 text-sm text-zinc-500 leading-relaxed max-w-sm">
+              <p className="mt-4 sm:mt-5 text-sm text-zinc-600 leading-relaxed max-w-sm">
                 Condition monitoring, reliability engineering training, and predictive AI solutions for mission-critical rotating machinery.
               </p>
               <div className="mt-5 space-y-2 text-xs font-mono text-zinc-700">
                 <div className="flex items-center gap-2">
-                  <span className="text-zinc-400 uppercase">Phone:</span>
+                  <span className="text-zinc-600 uppercase font-semibold">Phone:</span>
                   <a href="tel:8891144334" className="font-semibold text-zinc-950 hover:underline">
                     +91 88911 44334
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-zinc-400 uppercase">Email:</span>
+                  <span className="text-zinc-600 uppercase font-semibold">Email:</span>
                   <a href="mailto:contact@rotointellecta.com" className="font-semibold text-zinc-950 hover:underline">
                     contact@rotointellecta.com
                   </a>
                 </div>
               </div>
-              <p className="mt-4 font-mono text-[10px] uppercase text-zinc-400">
+              <p className="mt-4 font-mono text-[10px] uppercase text-zinc-600 font-semibold">
                 MONITOR | PREDICT | MAINTAIN | OPTIMISE | GROOM
               </p>
             </div>
@@ -1173,7 +1173,7 @@ export function Footer() {
           <div className="lg:col-span-6 grid grid-cols-2 gap-8 sm:gap-12">
             <div>
               <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Services</h4>
-              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
+              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-600 font-medium">
                 <li><a href="#remote-support" className="hover:text-zinc-950 transition-colors">Remote Support</a></li>
                 <li><a href="#asset-management" className="hover:text-zinc-950 transition-colors">PM Optimization</a></li>
                 <li><a href="#predictive-monitoring" className="hover:text-zinc-950 transition-colors">Live PdM</a></li>
@@ -1183,7 +1183,7 @@ export function Footer() {
 
             <div>
               <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Resources</h4>
-              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
+              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-600 font-medium">
                 <li><a href="#cases" className="hover:text-zinc-950 transition-colors">Case Studies</a></li>
                 <li><a href="#training" className="hover:text-zinc-950 transition-colors">Mobius Cat I–III</a></li>
                 <li><a href="#training" className="hover:text-zinc-950 transition-colors">CMRP Prep</a></li>
@@ -1194,12 +1194,12 @@ export function Footer() {
         </div>
 
         {/* Divider & Bottom copyright row */}
-        <div className="mt-10 sm:mt-12 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-400">
+        <div className="mt-10 sm:mt-12 pt-6 border-t border-zinc-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-600 font-medium">
           <p>© 2026 RotoIntellecta AI. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <a href="#top" className="hover:text-zinc-700 transition-colors">Back to top ↑</a>
-            <a href="tel:8891144334" className="hover:text-zinc-700 transition-colors font-mono">+91 88911 44334</a>
-            <a href="mailto:contact@rotointellecta.com" className="hover:text-zinc-700 transition-colors">contact@rotointellecta.com</a>
+            <a href="#top" className="hover:text-zinc-900 transition-colors">Back to top ↑</a>
+            <a href="tel:8891144334" className="hover:text-zinc-900 transition-colors font-mono">+91 88911 44334</a>
+            <a href="mailto:contact@rotointellecta.com" className="hover:text-zinc-900 transition-colors">contact@rotointellecta.com</a>
           </div>
         </div>
       </div>
