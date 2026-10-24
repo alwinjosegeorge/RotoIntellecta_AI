@@ -338,17 +338,10 @@ export function Navbar() {
         </div>
 
         {/* Desktop Contact Actions */}
-        <div className="ml-auto hidden items-center gap-4 xl:gap-6 lg:flex shrink-0">
-          <a
-            href="tel:8891144334"
-            className="flex items-center gap-1.5 text-xs font-mono text-zinc-300 hover:text-white transition-colors whitespace-nowrap"
-          >
-            <Phone className="size-3.5 text-emerald-400" />
-            <span>+91 88911 44334</span>
-          </a>
+        <div className="ml-auto hidden items-center lg:flex shrink-0">
           <a
             href="#contact"
-            className="flex items-center gap-1.5 text-xs font-semibold uppercase px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors whitespace-nowrap"
+            className="flex items-center gap-1.5 text-xs font-semibold uppercase px-4 py-2 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors whitespace-nowrap shadow-sm hover:shadow"
           >
             Talk to an expert <ArrowDownRight className="size-3.5" />
           </a>
@@ -357,15 +350,15 @@ export function Navbar() {
         {/* Mobile Right Action Bar */}
         <div className="flex items-center gap-2 lg:hidden">
           <a
-            href="tel:8891144334"
-            aria-label="Direct Call"
-            className="grid size-9 place-items-center rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 active:scale-95 transition-transform"
+            href="#contact"
+            className="flex items-center gap-1 text-[11px] font-semibold uppercase px-3 py-1.5 rounded-full bg-white text-black active:scale-95 transition-transform"
           >
-            <Phone className="size-4" />
+            <span>Expert</span>
+            <ArrowDownRight className="size-3" />
           </a>
           <button
             type="button"
-            className="grid size-9 place-items-center rounded-lg bg-white/10 text-white active:scale-95 transition-transform"
+            className="grid size-9 place-items-center rounded-lg bg-white/10 text-white active:scale-95 transition-transform cursor-pointer"
             aria-label="Open menu"
             onClick={() => setOpen(true)}
           >
