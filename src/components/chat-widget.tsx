@@ -146,7 +146,7 @@ export function ChatWidget() {
         await saveChatInquiry({
           sessionId,
           name: "RotoIntellecta AI (Gemini)",
-          contact: "Rotointellecta@gmail.com",
+          contact: "contact@rotointellecta.com",
           message: replyText,
           sender: "assistant",
         });
@@ -158,7 +158,7 @@ export function ChatWidget() {
       const fallbackMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: "assistant",
-        text: "Thank you for reaching out! You can reach our rotating machinery engineering desk directly at 📞 +91 88911 44334 or ✉️ Rotointellecta@gmail.com.",
+        text: "Thank you for reaching out! You can reach our rotating machinery engineering desk directly at 📞 +91 88911 44334 or ✉️ contact@rotointellecta.com.",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, fallbackMsg]);
@@ -294,12 +294,12 @@ export function ChatWidget() {
               <Phone className="size-3 text-emerald-600" /> +91 88911 44334
             </a>
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@rotointellecta.com&su=Technical%20Inquiry%20-%20RotoIntellecta"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-950 text-zinc-500 hover:underline"
             >
-              Rotointellecta@gmail.com
+              contact@rotointellecta.com
             </a>
           </div>
 

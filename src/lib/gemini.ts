@@ -35,13 +35,13 @@ Core Company Information:
 - Tribute: In loving memory of our mentor Nelson Sir ("When you earn money, don't just build wealth—create employment. Give back to the society that educated you.").
 - Official Contact:
   - Phone & WhatsApp: +91 88911 44334 (Direct engineering desk / 24/7 technical dispatch)
-  - Email: Rotointellecta@gmail.com
+  - Email: contact@rotointellecta.com
 
 Guidelines:
 - Tone: Professional, technically competent, welcoming, and concise.
 - Formatting: Use short paragraphs or clear bullet points suitable for a compact website chat widget.
 - Always provide actionable technical insight (e.g. mention 1X/2X running speed, fault frequencies, Bently Nevada System1, or Mobius paths when relevant).
-- Offer our official phone number (+91 88911 44334) and email (Rotointellecta@gmail.com) whenever the visitor asks for emergency diagnostics, quotes, scheduling, or callback requests.`;
+- Offer our official phone number (+91 88911 44334) and email (contact@rotointellecta.com) whenever the visitor asks for emergency diagnostics, quotes, scheduling, or callback requests.`;
 
 export interface ChatHistoryItem {
   sender: "visitor" | "assistant" | "system";
@@ -126,16 +126,16 @@ function fallbackResponse(userText: string): string {
   }
 
   if (lower.includes("email") || lower.includes("mail")) {
-    return "You can email our specialists at ✉️ Rotointellecta@gmail.com. Feel free to attach your FFT spectrum waterfall plots or vibration reports for immediate analysis.";
+    return "You can email our specialists at ✉️ contact@rotointellecta.com. Feel free to attach your FFT spectrum waterfall plots or vibration reports for immediate analysis.";
   }
 
   if (lower.includes("vibrat") || lower.includes("defect") || lower.includes("bearing") || lower.includes("gear")) {
-    return "Our diagnostic engineers specialize in high vibration RCA, Bently Nevada System1 data surveillance, and spectral demodulation. Would you like our team to review your machine data? You can call us directly at +91 88911 44334 or email Rotointellecta@gmail.com.";
+    return "Our diagnostic engineers specialize in high vibration RCA, Bently Nevada System1 data surveillance, and spectral demodulation. Would you like our team to review your machine data? You can call us directly at +91 88911 44334 or email contact@rotointellecta.com.";
   }
 
   if (lower.includes("train") || lower.includes("mobius") || lower.includes("cmrp") || lower.includes("course") || lower.includes("academy")) {
-    return "RotoIntellecta Academy provides accredited Mobius Institute Category I, II, and III Vibration Analyst training, as well as SMRP CMRP certification prep. Call +91 88911 44334 or email Rotointellecta@gmail.com for upcoming batch schedules.";
+    return "RotoIntellecta Academy provides accredited Mobius Institute Category I, II, and III Vibration Analyst training, as well as SMRP CMRP certification prep. Call +91 88911 44334 or email contact@rotointellecta.com for upcoming batch schedules.";
   }
 
-  return "Thank you for reaching out! Our reliability engineers specialize in turbomachinery diagnostics, remote System1 surveillance, and reliability training. You can contact us directly at 📞 +91 88911 44334 or ✉️ Rotointellecta@gmail.com.";
+  return "Thank you for reaching out! Our reliability engineers specialize in turbomachinery diagnostics, remote System1 surveillance, and reliability training. You can contact us directly at 📞 +91 88911 44334 or ✉️ contact@rotointellecta.com.";
 }

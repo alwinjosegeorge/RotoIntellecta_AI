@@ -424,11 +424,11 @@ export function Navbar() {
               </a>
             </div>
             <a
-              href="mailto:Rotointellecta@gmail.com"
+              href="mailto:contact@rotointellecta.com"
               className="flex items-center justify-center gap-2 rounded-xl bg-zinc-900 border border-zinc-800 p-2 text-xs font-mono text-zinc-300 truncate"
             >
               <Mail className="size-3.5 text-zinc-400" />
-              <span>Rotointellecta@gmail.com</span>
+              <span>contact@rotointellecta.com</span>
             </a>
             <a
               href="#contact"
@@ -992,8 +992,8 @@ export function ContactSection() {
   };
 
   const handleSendMail = (e?: React.MouseEvent) => {
-    const mailtoUrl = "mailto:Rotointellecta@gmail.com?subject=Technical%20Inquiry%20-%20RotoIntellecta%20AI";
-    const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI";
+    const mailtoUrl = "mailto:contact@rotointellecta.com?subject=Technical%20Inquiry%20-%20RotoIntellecta";
+    const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=contact@rotointellecta.com&su=Technical%20Inquiry%20-%20RotoIntellecta";
 
     const isMobile =
       typeof navigator !== "undefined" &&
@@ -1069,14 +1069,14 @@ export function ContactSection() {
             </div>
             <p className="font-mono text-xs uppercase tracking-wider text-zinc-400">Official Engineering Email</p>
             <h3 className="mt-2 text-lg sm:text-xl font-bold tracking-tight text-white break-all">
-              Rotointellecta@gmail.com
+              contact@rotointellecta.com
             </h3>
             <p className="mt-2.5 text-xs leading-relaxed text-zinc-400">
               Submit spectrum waterfall plots, RFQs, training inquiries, or asset maintenance logs.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@rotointellecta.com&su=Technical%20Inquiry%20-%20RotoIntellecta"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleSendMail}
@@ -1085,7 +1085,7 @@ export function ContactSection() {
                 <Mail className="size-3.5" /> Send Mail
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=Rotointellecta@gmail.com&su=Technical%20Inquiry%20-%20RotoIntellecta%20AI"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@rotointellecta.com&su=Technical%20Inquiry%20-%20RotoIntellecta"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors active:scale-95"
@@ -1095,7 +1095,7 @@ export function ContactSection() {
               </a>
               <button
                 type="button"
-                onClick={() => copyToClipboard("Rotointellecta@gmail.com", "email")}
+                onClick={() => copyToClipboard("contact@rotointellecta.com", "email")}
                 className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-zinc-800 px-3 py-2.5 text-xs font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors cursor-pointer active:scale-95"
                 title="Copy email address"
               >
@@ -1167,8 +1167,8 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-zinc-400 uppercase">Email:</span>
-                  <a href="mailto:Rotointellecta@gmail.com" className="font-semibold text-zinc-950 hover:underline">
-                    Rotointellecta@gmail.com
+                  <a href="mailto:contact@rotointellecta.com" className="font-semibold text-zinc-950 hover:underline">
+                    contact@rotointellecta.com
                   </a>
                 </div>
               </div>
@@ -1208,7 +1208,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a href="#top" className="hover:text-zinc-700 transition-colors">Back to top ↑</a>
             <a href="tel:8891144334" className="hover:text-zinc-700 transition-colors font-mono">+91 88911 44334</a>
-            <a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-700 transition-colors">Rotointellecta@gmail.com</a>
+            <a href="mailto:contact@rotointellecta.com" className="hover:text-zinc-700 transition-colors">contact@rotointellecta.com</a>
           </div>
         </div>
       </div>
