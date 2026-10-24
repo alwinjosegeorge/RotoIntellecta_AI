@@ -224,8 +224,8 @@ function AdminDashboard() {
           <div className="flex justify-center mb-6">
             <img
               src={logoDark}
-              alt="RotoIntellecta AI"
-              className="h-10 sm:h-11 w-auto object-contain"
+              alt="RotoIntellecta"
+              className="h-12 sm:h-14 w-auto object-contain"
             />
           </div>
 
@@ -315,10 +315,10 @@ function AdminDashboard() {
             <div className="flex items-center gap-3">
               <img
                 src={logoDark}
-                alt="RotoIntellecta AI"
-                className="h-7 sm:h-8 w-auto object-contain"
-                width={155}
-                height={30}
+                alt="RotoIntellecta"
+                className="h-8 sm:h-9 w-auto object-contain"
+                width={110}
+                height={36}
               />
               <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 border-l border-zinc-700 pl-3 hidden sm:inline">
                 Case Studies Admin

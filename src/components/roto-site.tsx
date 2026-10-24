@@ -320,13 +320,13 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-ink/90 text-ink-foreground backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-site items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
-        <a href="#top" className="flex items-center group shrink-0 py-1" aria-label="RotoIntellecta AI Home">
+        <a href="#top" className="flex items-center group shrink-0 py-1" aria-label="RotoIntellecta Home">
           <img
             src={logoDark}
-            alt="RotoIntellecta AI - Industrial Solutions"
-            className="h-8 sm:h-8.5 lg:h-9 w-auto object-contain transition-opacity group-hover:opacity-90"
-            width={180}
-            height={36}
+            alt="RotoIntellecta - Remote Monitoring & Expert Solutions"
+            className="h-9 sm:h-10 lg:h-11 w-auto object-contain transition-opacity group-hover:opacity-90"
+            width={128}
+            height={44}
           />
         </a>
         
@@ -381,10 +381,10 @@ export function Navbar() {
             <div className="flex items-center">
               <img
                 src={logoDark}
-                alt="RotoIntellecta AI - Industrial Solutions"
-                className="h-8 w-auto object-contain"
-                width={165}
-                height={32}
+                alt="RotoIntellecta - Remote Monitoring & Expert Solutions"
+                className="h-9 sm:h-10 w-auto object-contain"
+                width={117}
+                height={40}
               />
             </div>
             <button
@@ -1152,13 +1152,13 @@ export function Footer() {
           {/* Left Column: Brand info */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <a href="#top" className="inline-block group py-1" aria-label="RotoIntellecta AI Home">
+              <a href="#top" className="inline-block group py-1" aria-label="RotoIntellecta Home">
                 <img
                   src={logoLight}
-                  alt="RotoIntellecta AI - Industrial Solutions"
-                  className="h-9 sm:h-10 w-auto object-contain transition-opacity group-hover:opacity-90"
-                  width={206}
-                  height={40}
+                  alt="RotoIntellecta - Remote Monitoring & Expert Solutions"
+                  className="h-11 sm:h-12 w-auto object-contain transition-opacity group-hover:opacity-90"
+                  width={140}
+                  height={48}
                 />
               </a>
               <p className="mt-4 sm:mt-5 text-sm text-zinc-500 leading-relaxed max-w-xs">
