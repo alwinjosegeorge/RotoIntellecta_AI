@@ -496,20 +496,6 @@ export function Hero() {
               <a href="#services" className="btn-light w-full sm:w-auto text-center justify-center">Explore solutions <ArrowDownRight className="size-4" /></a>
               <a href="#contact" className="btn-outline-light w-full sm:w-auto text-center justify-center">Talk to an expert</a>
             </div>
-
-            {/* Mobile quick reliability badges */}
-            <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono text-zinc-400 lg:hidden border-t border-ink-line/60 pt-4">
-              <span className="flex items-center gap-1.5 bg-ink-panel/90 border border-white/10 px-2.5 py-1 rounded shadow-sm">
-                <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                24/7 Remote RCA & System1
-              </span>
-              <span className="flex items-center gap-1.5 bg-ink-panel/90 border border-white/10 px-2.5 py-1 rounded shadow-sm">
-                Mobius Cat III & CMRP
-              </span>
-              <a href="tel:8891144334" className="flex items-center gap-1.5 bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold active:scale-95 transition-transform shadow-sm">
-                <Phone className="size-3" /> Call: +91 88911 44334
-              </a>
-            </div>
           </div>
           
           <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
@@ -518,9 +504,6 @@ export function Hero() {
               <p>Remote Engineering Support & RCA</p>
               <p>24/7 AI System1 Data Surveillance</p>
               <p>Mobius Cat III & CMRP Certified</p>
-              <p className="text-zinc-300 pt-1">
-                Direct Desk: <a href="tel:8891144334" className="text-white hover:underline">+91 88911 44334</a>
-              </p>
             </div>
           </div>
         </div>
