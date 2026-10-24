@@ -232,7 +232,10 @@ export function ChatWidget() {
               placeholder="Write a message..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="w-full bg-transparent text-xs text-zinc-800 placeholder-zinc-400 focus:outline-hidden"
+              enterKeyHint="send"
+              autoComplete="off"
+              autoCorrect="off"
+              className="w-full bg-transparent text-[16px] sm:text-xs text-zinc-800 placeholder-zinc-400 focus:outline-hidden"
             />
             <button
               type="submit"
@@ -248,26 +251,26 @@ export function ChatWidget() {
 
       {/* 2. EXPANDED FULL CHAT CONVERSATION VIEW */}
       {viewState === "chat" && (
-        <div className="mb-2 flex h-[calc(100dvh-5.5rem)] max-h-[520px] w-[calc(100vw-1.5rem)] max-w-[380px] flex-col rounded-3xl bg-white shadow-2xl border border-zinc-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="mb-1 sm:mb-2 flex h-[calc(100dvh-4.5rem)] sm:h-[calc(100dvh-5.5rem)] max-h-[580px] sm:max-h-[520px] w-[calc(100vw-1.5rem)] max-w-[380px] flex-col rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-zinc-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           {/* Header */}
-          <div className="bg-zinc-950 p-4 text-white flex items-center justify-between">
+          <div className="bg-zinc-950 p-3.5 sm:p-4 text-white flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2.5">
-              <div className="relative flex size-9 items-center justify-center rounded-xl bg-[#1d68f6] text-white font-bold">
+              <div className="relative flex size-9 items-center justify-center rounded-xl bg-[#1d68f6] text-white font-bold shrink-0">
                 <RobotAvatarIcon className="size-5.5 text-white" />
                 <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-zinc-950"></span>
               </div>
-              <div>
-                <h4 className="text-xs font-bold tracking-tight text-white flex items-center gap-1.5">
-                  RotoIntellecta AI Desk
-                  <span className="rounded bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.2 text-[9px] font-mono">
+              <div className="min-w-0">
+                <h4 className="text-xs font-bold tracking-tight text-white flex items-center gap-1.5 truncate">
+                  <span>RotoIntellecta AI Desk</span>
+                  <span className="rounded bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.2 text-[9px] font-mono shrink-0">
                     ONLINE
                   </span>
                 </h4>
-                <p className="text-[10px] text-zinc-400">24/7 Technical Dispatch</p>
+                <p className="text-[10px] text-zinc-400 truncate">24/7 Technical Dispatch</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 shrink-0 ml-2">
               <button
                 type="button"
                 onClick={() => setViewState("minimized")}
@@ -289,15 +292,15 @@ export function ChatWidget() {
           </div>
 
           {/* Quick contact banner */}
-          <div className="bg-zinc-100 px-4 py-2 border-b border-zinc-200 flex items-center justify-between text-[11px] font-mono text-zinc-600">
-            <a href="tel:8891144334" className="flex items-center gap-1 hover:text-zinc-950 text-zinc-800 font-semibold">
-              <Phone className="size-3 text-emerald-600" /> +91 88911 44334
+          <div className="bg-zinc-100 px-3.5 py-1.5 sm:py-2 border-b border-zinc-200 flex items-center justify-between text-[11px] font-mono text-zinc-600 shrink-0">
+            <a href="tel:8891144334" className="flex items-center gap-1 hover:text-zinc-950 text-zinc-800 font-semibold truncate">
+              <Phone className="size-3 text-emerald-600 shrink-0" /> +91 88911 44334
             </a>
             <a
               href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@rotointellecta.com&su=Technical%20Inquiry%20-%20RotoIntellecta"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-950 text-zinc-500 hover:underline"
+              className="hover:text-zinc-950 text-zinc-500 hover:underline truncate ml-2"
             >
               contact@rotointellecta.com
             </a>
@@ -332,7 +335,7 @@ export function ChatWidget() {
           </div>
 
           {/* Quick Suggestions */}
-          <div className="px-3 py-2 bg-white border-t border-zinc-100 flex items-center gap-1.5 overflow-x-auto text-[10px]">
+          <div className="px-3 py-2 bg-white border-t border-zinc-100 flex items-center gap-1.5 overflow-x-auto text-[10px] shrink-0">
             <button
               type="button"
               onClick={() => handleQuickQuestion("I need emergency vibration analysis.")}
@@ -362,20 +365,23 @@ export function ChatWidget() {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="p-3 bg-white border-t border-zinc-200 flex items-center gap-2"
+            className="p-2.5 sm:p-3 bg-white border-t border-zinc-200 flex items-center gap-2 shrink-0"
           >
             <input
               type="text"
               placeholder="Write a message..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="flex-1 rounded-xl bg-zinc-100 px-3.5 py-2 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-hidden focus:bg-white focus:ring-1 focus:ring-zinc-400 transition-all"
+              enterKeyHint="send"
+              autoComplete="off"
+              autoCorrect="off"
+              className="flex-1 rounded-xl bg-zinc-100 px-3.5 py-2.5 sm:py-2 text-[16px] sm:text-xs text-zinc-900 placeholder-zinc-400 focus:outline-hidden focus:bg-white focus:ring-1 focus:ring-zinc-400 transition-all"
             />
             <button
               type="submit"
               disabled={!inputValue.trim() || isSending}
               aria-label="Send message"
-              className="grid size-8 place-items-center rounded-xl bg-zinc-950 text-white hover:bg-zinc-800 disabled:opacity-30 transition-colors cursor-pointer shadow-sm"
+              className="grid size-9 sm:size-8 place-items-center rounded-xl bg-zinc-950 text-white hover:bg-zinc-800 disabled:opacity-30 transition-colors cursor-pointer shadow-sm shrink-0"
             >
               <Send className="size-3.5" />
             </button>
