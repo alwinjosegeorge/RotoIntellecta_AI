@@ -447,13 +447,21 @@ export function Navbar() {
 export function Hero() {
   return (
     <section id="top" className="relative min-h-[100svh] lg:min-h-[840px] overflow-hidden bg-ink pt-16 text-ink-foreground flex flex-col justify-between">
-      <div className="absolute inset-x-0 bottom-0 h-[64%] lg:left-[33%] lg:top-16 lg:h-[calc(100%-4rem)]">
-        <img src={heroImage} alt="Industrial turbine rotor in a workshop" width={1920} height={1280} fetchPriority="high" className="h-full w-full object-cover grayscale" />
+      <div className="absolute inset-0 lg:inset-auto lg:left-[33%] lg:top-16 lg:right-0 lg:bottom-0 lg:h-[calc(100%-4rem)] pointer-events-none">
+        <img
+          src={heroImage}
+          alt="Industrial turbine rotor in a workshop"
+          width={1920}
+          height={1280}
+          fetchPriority="high"
+          className="h-full w-full object-cover grayscale opacity-20 sm:opacity-30 lg:opacity-85 transition-opacity"
+        />
         <div className="absolute inset-0 bg-hero-wash" />
-        <div className="absolute inset-0 technical-grid opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/85 to-ink lg:hidden" />
+        <div className="absolute inset-0 technical-grid opacity-20 lg:opacity-30" />
       </div>
       
-      <div className="relative mx-auto flex flex-1 flex-col justify-between max-w-site w-full px-5 pb-8 pt-6 sm:pt-10 lg:px-8 lg:pb-10 lg:pt-10">
+      <div className="relative z-10 mx-auto flex flex-1 flex-col justify-between max-w-site w-full px-5 pb-8 pt-6 sm:pt-10 lg:px-8 lg:pb-10 lg:pt-10">
         <div>
           <div className="grid grid-cols-4 gap-4 lg:grid-cols-12">
             <p className="kicker text-ink-muted">Rotating equipment reliability<br />& industrial artificial intelligence</p>
@@ -471,7 +479,7 @@ export function Hero() {
           {/* 5 Core Pillars Bar */}
           <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-xs font-mono tracking-wider text-zinc-300 uppercase">
             {fivePillars.map((pillar, i) => (
-              <span key={pillar} className="flex items-center gap-2 sm:gap-4 bg-white/5 lg:bg-transparent px-2.5 py-1 sm:px-0 sm:py-0 rounded-md sm:rounded-none border border-white/10 lg:border-none">
+              <span key={pillar} className="flex items-center gap-2 sm:gap-4 bg-ink-panel/90 sm:bg-white/5 lg:bg-transparent px-2.5 py-1 sm:px-0 sm:py-0 rounded-md sm:rounded-none border border-white/10 lg:border-none shadow-sm sm:shadow-none">
                 <span className="font-semibold text-white">{pillar}</span>
                 {i < fivePillars.length - 1 && <span className="text-zinc-600 hidden sm:inline">◈</span>}
               </span>
@@ -481,7 +489,7 @@ export function Hero() {
 
         <div className="mt-8 grid items-end gap-6 sm:gap-8 pt-4 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-zinc-300">
+            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-zinc-200 lg:text-zinc-300">
               Welcome to the future of industrial reliability. At <strong className="text-white">RotoIntellecta AI</strong>, we bridge the gap between heavy-duty engineering and cutting-edge artificial intelligence. We specialize in rotating equipment excellence, offering a comprehensive suite of digital and technical solutions designed to maximize your asset life cycle and minimize unplanned downtime.
             </p>
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 w-full sm:w-auto">
@@ -491,14 +499,14 @@ export function Hero() {
 
             {/* Mobile quick reliability badges */}
             <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono text-zinc-400 lg:hidden border-t border-ink-line/60 pt-4">
-              <span className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded">
+              <span className="flex items-center gap-1.5 bg-ink-panel/90 border border-white/10 px-2.5 py-1 rounded shadow-sm">
                 <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 24/7 Remote RCA & System1
               </span>
-              <span className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded">
+              <span className="flex items-center gap-1.5 bg-ink-panel/90 border border-white/10 px-2.5 py-1 rounded shadow-sm">
                 Mobius Cat III & CMRP
               </span>
-              <a href="tel:8891144334" className="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold">
+              <a href="tel:8891144334" className="flex items-center gap-1.5 bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold active:scale-95 transition-transform shadow-sm">
                 <Phone className="size-3" /> Call: +91 88911 44334
               </a>
             </div>

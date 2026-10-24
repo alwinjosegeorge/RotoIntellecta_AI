@@ -85,7 +85,7 @@ summary::-webkit-details-marker { display: none; }
 
 @media (max-width: 1023px) {
   .hero-title { font-size: clamp(2.4rem, 10.5vw, 5.5rem); line-height: 0.92; letter-spacing: -0.02em; }
-  .bg-hero-wash { background: linear-gradient(0deg, var(--ink) 0%, color-mix(in oklab, var(--ink) 55%, transparent) 55%, var(--ink) 95%); }
+  .bg-hero-wash { background: linear-gradient(180deg, var(--ink) 0%, rgba(9, 9, 11, 0.88) 25%, rgba(9, 9, 11, 0.94) 65%, var(--ink) 100%); }
   .section-title { margin-top: 1.5rem; font-size: clamp(2rem, 7.5vw, 4.5rem); line-height: 0.95; }
   .ai-title { font-size: clamp(1.9rem, 6.5vw, 4.5rem); line-height: 0.96; }
 }
