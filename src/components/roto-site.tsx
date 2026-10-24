@@ -463,11 +463,22 @@ export function Hero() {
       
       <div className="relative z-10 mx-auto flex flex-1 flex-col justify-between max-w-site w-full px-5 pb-8 pt-6 sm:pt-10 lg:px-8 lg:pb-10 lg:pt-10">
         <div>
-          <div className="grid grid-cols-4 gap-4 lg:grid-cols-12">
+          <div className="grid grid-cols-4 gap-4 lg:grid-cols-12 items-start">
             <p className="kicker text-ink-muted">Rotating equipment reliability<br />& industrial artificial intelligence</p>
-            <p className="col-span-2 col-start-3 hidden text-right font-mono text-[10px] uppercase leading-relaxed text-ink-muted lg:col-span-2 lg:col-start-11 lg:block">
-              Proven OpEx / ~$5M Saved<br />Experience / 18+ Years<br />Global Support
-            </p>
+            <div className="hidden lg:col-span-4 lg:col-start-9 lg:flex lg:justify-end">
+              <div className="rounded-lg border border-white/15 bg-zinc-950/85 px-4 py-2.5 backdrop-blur-md shadow-2xl text-right font-mono text-[11px] uppercase tracking-wider leading-relaxed">
+                <div className="flex items-center justify-end gap-1.5 font-semibold text-emerald-400">
+                  <span className="size-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                  <span>Proven OpEx / ~$5M Saved</span>
+                </div>
+                <div className="text-white font-medium">
+                  Experience / 18+ Years
+                </div>
+                <div className="text-zinc-300">
+                  Global Support
+                </div>
+              </div>
+            </div>
           </div>
 
           <h1 className="hero-title mt-6 sm:mt-8 lg:mt-8">
