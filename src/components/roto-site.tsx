@@ -104,7 +104,7 @@ const services = [
   },
   {
     no: "05",
-    id: "training-academy",
+    id: "training",
     title: "Reliability Academy & Certifications",
     short: "World-class vibration and reliability certifications for engineering teams.",
     tagline: "Build Skills. Get Certified. Advance Maintenance Worldwide.",
@@ -784,7 +784,8 @@ export function ExpertiseSection() {
 export function TrainingSection() {
   const service = services[4];
   return (
-    <section id="training" className="bg-white py-24 lg:py-32 border-b border-border">
+    <section id="training" className="relative bg-white py-24 lg:py-32 border-b border-border">
+      <div id="training-academy" className="absolute -top-16" />
       <div className="mx-auto max-w-site px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
