@@ -1143,7 +1143,7 @@ export function Footer() {
       <div className="relative z-10 max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-12 md:p-14 shadow-sm border border-zinc-200/80 text-zinc-900">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left Column: Brand info */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="lg:col-span-6 flex flex-col justify-between">
             <div>
               <a href="#top" className="inline-block group py-1" aria-label="RotoIntellecta Home">
                 <img
@@ -1154,7 +1154,7 @@ export function Footer() {
                   height={48}
                 />
               </a>
-              <p className="mt-4 sm:mt-5 text-sm text-zinc-500 leading-relaxed max-w-xs">
+              <p className="mt-4 sm:mt-5 text-sm text-zinc-500 leading-relaxed max-w-sm">
                 Condition monitoring, reliability engineering training, and predictive AI solutions for mission-critical rotating machinery.
               </p>
               <div className="mt-5 space-y-2 text-xs font-mono text-zinc-700">
@@ -1177,8 +1177,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right Columns: Services, Academy, Company */}
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
+          {/* Right Columns: Services & Resources */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-8 sm:gap-12">
             <div>
               <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Services</h4>
               <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
@@ -1196,16 +1196,6 @@ export function Footer() {
                 <li><a href="#training" className="hover:text-zinc-950 transition-colors">Mobius Cat I–III</a></li>
                 <li><a href="#training" className="hover:text-zinc-950 transition-colors">CMRP Prep</a></li>
                 <li><a href="#tribute" className="hover:text-zinc-950 transition-colors">Nelson Sir Tribute</a></li>
-              </ul>
-            </div>
-
-            <div className="col-span-2 sm:col-span-1">
-              <h4 className="text-sm font-semibold text-zinc-950 mb-3 sm:mb-4">Company</h4>
-              <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-zinc-500 font-normal">
-                <li><a href="#expertise" className="hover:text-zinc-950 transition-colors">18 Years Expertise</a></li>
-                <li><a href="#expertise" className="hover:text-zinc-950 transition-colors">Certifications</a></li>
-                <li><a href="tel:8891144334" className="hover:text-zinc-950 transition-colors font-mono">+91 88911 44334</a></li>
-                <li><a href="mailto:Rotointellecta@gmail.com" className="hover:text-zinc-950 transition-colors truncate block">Rotointellecta@gmail.com</a></li>
               </ul>
             </div>
           </div>
