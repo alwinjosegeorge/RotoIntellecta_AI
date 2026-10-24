@@ -1,3 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +15,11 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+User-agent: LinkedInBot
 Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://www.rotointellecta.com/sitemap.xml
