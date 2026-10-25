@@ -488,11 +488,23 @@ export function Hero() {
           </h1>
 
           {/* 5 Core Pillars Bar */}
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-xs font-mono tracking-wider text-zinc-300 uppercase">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono tracking-wider text-zinc-300 uppercase">
             {fivePillars.map((pillar, i) => (
-              <span key={pillar} className="flex items-center gap-2 sm:gap-4 bg-ink-panel/90 sm:bg-white/5 lg:bg-transparent px-2.5 py-1 sm:px-0 sm:py-0 rounded-md sm:rounded-none border border-white/10 lg:border-none shadow-sm sm:shadow-none">
-                <span className="font-semibold text-white">{pillar}</span>
-                {i < fivePillars.length - 1 && <span className="text-zinc-600 hidden sm:inline">◈</span>}
+              <span key={pillar} className="flex items-center gap-2 sm:gap-3">
+                <a
+                  href="#services"
+                  className="group inline-flex items-center bg-ink-panel/90 sm:bg-white/5 lg:bg-transparent px-2.5 py-1 sm:px-2 sm:py-0.5 rounded-md border border-white/10 lg:border-transparent lg:hover:border-white/20 hover:bg-white/10 transition-all duration-150 cursor-pointer shadow-sm sm:shadow-none"
+                  title={`Explore ${pillar} in Solutions`}
+                >
+                  <span className="font-semibold text-white group-hover:text-emerald-400 transition-colors">
+                    {pillar}
+                  </span>
+                </a>
+                {i < fivePillars.length - 1 && (
+                  <span className="text-zinc-600 hidden sm:inline select-none" aria-hidden="true">
+                    ◈
+                  </span>
+                )}
               </span>
             ))}
           </div>
